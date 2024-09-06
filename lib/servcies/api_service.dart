@@ -23,7 +23,7 @@ class ApiService {
     return responseBody['response']['result'][0];
   }
 
-  Future<List<LocationModel>> getDefaultEventList() async {
+  Future<List<LocationModel>> getEventList(type) async {
     List<LocationModel> locationDataInstances = [];
     try {
       Position position = await LocationService().getCurrentPosition();
@@ -32,11 +32,10 @@ class ApiService {
       final mapY = position.latitude;
 
       final locationBasedListUrl =
-          'locationBasedList1?serviceKey=$publicKey&numOfRows=10&pageNo=0&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A&mapX=$mapX&mapY=$mapY&radius=1000&contentTypeId=15';
+          'locationBasedList1?serviceKey=$publicKey&numOfRows=10&pageNo=0&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A&mapX=$mapX&mapY=$mapY&radius=1000&contentTypeId=$type';
 
       final url = Uri.parse('$baseUrl/$locationBasedListUrl');
       final response = await http.get(url);
-
       if (response.statusCode == 200) {
         final responseBody = jsonDecode(utf8.decode(response.bodyBytes));
 
