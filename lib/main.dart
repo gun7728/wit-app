@@ -49,7 +49,7 @@ class _AppState extends State<App> {
       ),
       home: Scaffold(
         backgroundColor: Colors.white,
-        appBar: const MainAppBar(),
+        appBar: _currentIndex != 2 ? const MainAppBar() : null,
         body: CustomScrollView(
           slivers: [
             SliverFillRemaining(

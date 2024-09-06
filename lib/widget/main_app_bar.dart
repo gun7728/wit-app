@@ -14,7 +14,7 @@ class MainAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _MainAppBarState extends State<MainAppBar> {
-  String currentLocation = '';
+  String currentLocation = 'Current Location';
   onPressLocaiton() async {
     Position position = await LocationService().getCurrentPosition();
     final result = await ApiService()

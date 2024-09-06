@@ -18,67 +18,94 @@ class LocationList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 2,
-            blurRadius: 5,
-            offset: const Offset(0, 3),
-          ),
-        ],
-      ),
-      child: SizedBox(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                  height: 200, // 이미지 최대 높이
-                  decoration: const BoxDecoration(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(12)),
-                  ),
-                  child: Image.network(
-                    firstimage,
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                    height: 200,
-                    errorBuilder: (context, error, stackTrace) {
-                      // 네트워크 이미지 로딩 실패 시 대체 이미지 표시
-                      return Image.asset(
-                        'assets/noImg.webp',
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                        height: 200,
-                      );
-                    },
-                  )),
+    return Stack(
+      children: [
+        Container(
+          alignment: Alignment.center,
+          width: 220,
+          height: 320,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(25),
+            child: Image.network(
+              firstimage,
+              fit: BoxFit.fitHeight,
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              errorBuilder: (context, error, stackTrace) {
+                // 네트워크 이미지 로딩 실패 시 대체 이미지 표시
+                return Image.asset(
+                  'assets/noImg.webp',
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  fit: BoxFit.fitHeight,
+                );
+              },
             ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
+          ),
+        ),
+        Positioned(
+          left: 5,
+          bottom: 40,
+          child: ConstrainedBox(
+            // width: 180,
+            constraints: const BoxConstraints(
+              maxWidth: 180,
+            ),
+            child: IntrinsicWidth(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color(0xFF4D5653),
+                  borderRadius: BorderRadius.circular(45),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
                     title,
                     style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold),
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15.0,
+                    ),
                   ),
-                  const SizedBox(height: 5),
-                  Text(addr1),
-                  const SizedBox(height: 5),
-                  Text(tel),
-                ],
+                ),
               ),
             ),
-          ],
+          ),
         ),
-      ),
+        Positioned(
+          left: 5,
+          bottom: 5,
+          child: ConstrainedBox(
+            // width: 180,
+            constraints: const BoxConstraints(
+              maxWidth: 180,
+            ),
+            child: IntrinsicWidth(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color(0xFF4D5653),
+                  borderRadius: BorderRadius.circular(45),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    addr1,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 10.0,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

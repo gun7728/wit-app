@@ -82,15 +82,15 @@ flutter:
   fonts:
     - family: Pretendard
       fonts:
-        - asset: custom_fonts/Pretendard-Black.ttf
-        - asset: custom_fonts/Pretendard-Bold.ttf
-        - asset: custom_fonts/Pretendard-ExtraBold.ttf
-        - asset: custom_fonts/Pretendard-ExtraLight.ttf
-        - asset: custom_fonts/Pretendard-Light.ttf
-        - asset: custom_fonts/Pretendard-Medium.ttf
-        - asset: custom_fonts/Pretendard-Regular.ttf
-        - asset: custom_fonts/Pretendard-SemiBold.ttf
-        - asset: custom_fonts/Pretendard-Thin.ttf
+        - asset: custom_fonts/Pretendard-Black.otf
+        - asset: custom_fonts/Pretendard-Bold.otf
+        - asset: custom_fonts/Pretendard-ExtraBold.otf
+        - asset: custom_fonts/Pretendard-ExtraLight.otf
+        - asset: custom_fonts/Pretendard-Light.otf
+        - asset: custom_fonts/Pretendard-Medium.otf
+        - asset: custom_fonts/Pretendard-Regular.otf
+        - asset: custom_fonts/Pretendard-SemiBold.otf
+        - asset: custom_fonts/Pretendard-Thin.otf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
