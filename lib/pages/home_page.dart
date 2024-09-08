@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:wit_app/model/location_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wit_app/bloc/location_bloc.dart';
+import 'package:wit_app/bloc/location_event.dart';
+import 'package:wit_app/models/location.dart';
 import 'package:wit_app/servcies/api_service.dart';
 import 'package:wit_app/types/category_type.dart';
 import 'package:wit_app/widget/location_list.dart';
@@ -13,7 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentCategory = 15;
-  late Future<List<LocationModel>> eventLists;
+  late Future<List<Location>> eventLists;
 
   String currentLocation = '현위치';
 
@@ -41,6 +44,17 @@ class _HomePageState extends State<HomePage> {
         ),
         child: Column(
           children: [
+            ElevatedButton(
+              onPressed: () {
+                BlocProvider.of<LocationBloc>(context).add(
+                  ListLocationsEvent(
+                    position: Position(latitude: 37.7749, longitude: -122.4194),
+                    type: "12", // 예시로 콘텐츠 타입 지정
+                  ),
+                );
+              },
+              child: const Text('Load Locations'),
+            ),
             const SizedBox(
               height: 20,
             ),
@@ -169,7 +183,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget makePageView(AsyncSnapshot<List<LocationModel>> snapshot) {
+  Widget makePageView(AsyncSnapshot<List<Location>> snapshot) {
     if (snapshot.data == null || snapshot.data!.isEmpty) {
       return const Center(
         child: Text('No data available'),

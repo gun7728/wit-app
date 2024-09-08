@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:wit_app/model/location_model.dart';
+import 'package:wit_app/models/location.dart';
 import 'package:http/http.dart' as http;
 import 'package:wit_app/servcies/location_service.dart';
 
@@ -23,8 +23,8 @@ class ApiService {
     return responseBody['response']['result'][0];
   }
 
-  Future<List<LocationModel>> getEventList(type) async {
-    List<LocationModel> locationDataInstances = [];
+  Future<List<Location>> getEventList(type) async {
+    List<Location> locationDataInstances = [];
     try {
       Position position = await LocationService().getCurrentPosition();
 
@@ -51,7 +51,7 @@ class ApiService {
 
             if (items is List) {
               for (var locationData in items) {
-                final instance = LocationModel.fromJson(locationData);
+                final instance = Location.fromJson(locationData);
                 locationDataInstances.add(instance);
               }
             }
