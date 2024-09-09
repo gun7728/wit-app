@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:wit_app/bloc/position/position_bloc.dart';
+import 'package:wit_app/bloc/position/position_event.dart';
 import 'package:wit_app/servcies/api_service.dart';
 import 'package:wit_app/servcies/location_service.dart';
 
@@ -15,13 +18,25 @@ class MainAppBar extends StatefulWidget implements PreferredSizeWidget {
 
 class _MainAppBarState extends State<MainAppBar> {
   String currentLocation = 'Current Location';
-  onPressLocaiton() async {
+
+  Future<void> onPressLocation() async {
     Position position = await LocationService().getCurrentPosition();
+
     final result = await ApiService()
         .getCurrentLocation(position.longitude, position.latitude);
-    setState(() {
-      currentLocation = result['structure']['level4A'];
-    });
+
+    if (mounted) {
+      setState(() {
+        currentLocation = result['structure']['level4A'];
+      });
+
+      context.read<PositionBloc>().add(
+            SetPositionEvent(
+              longitude: position.longitude,
+              latitude: position.latitude,
+            ),
+          );
+    }
   }
 
   @override
@@ -50,7 +65,7 @@ class _MainAppBarState extends State<MainAppBar> {
               ),
               TextButton.icon(
                 onPressed: () {
-                  onPressLocaiton();
+                  onPressLocation();
                 },
                 icon: const Icon(
                   Icons.my_location,

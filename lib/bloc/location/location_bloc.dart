@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:wit_app/bloc/location_event.dart';
-import 'package:wit_app/bloc/location_state.dart';
-import 'package:wit_app/respository/location_repository.dart';
+import 'package:wit_app/bloc/location/location_event.dart';
+import 'package:wit_app/bloc/location/location_state.dart';
+import 'package:wit_app/respository/location/location_repository.dart';
 
 class LocationBloc extends Bloc<LocationEvent, LocationState> {
   final LocationRepository locationRepository;

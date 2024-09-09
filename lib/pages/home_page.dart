@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wit_app/bloc/location_bloc.dart';
-import 'package:wit_app/bloc/location_event.dart';
+import 'package:wit_app/bloc/position/position_bloc.dart';
+import 'package:wit_app/bloc/position/position_event.dart';
 import 'package:wit_app/models/location.dart';
 import 'package:wit_app/servcies/api_service.dart';
 import 'package:wit_app/types/category_type.dart';
-import 'package:wit_app/widget/location_list.dart';
+import 'package:wit_app/components/main_location_list.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -44,77 +44,6 @@ class _HomePageState extends State<HomePage> {
         ),
         child: Column(
           children: [
-            ElevatedButton(
-              onPressed: () {
-                BlocProvider.of<LocationBloc>(context).add(
-                  ListLocationsEvent(
-                    position: Position(latitude: 37.7749, longitude: -122.4194),
-                    type: "12", // 예시로 콘텐츠 타입 지정
-                  ),
-                );
-              },
-              child: const Text('Load Locations'),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: SizedBox(
-                height: 50,
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Find things to do',
-                    hintStyle: TextStyle(color: Colors.grey[400]),
-                    filled: true,
-                    fillColor:
-                        Theme.of(context).colorScheme.primary.withOpacity(0.1),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide.none,
-                    ),
-                    prefixIcon: Icon(Icons.search, color: Colors.grey[400]),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 20),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            SizedBox(
-              height: 40,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: cateogryList.length,
-                itemBuilder: (context, index) {
-                  String? category = categoryType[cateogryList[index]];
-                  return Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey[100],
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: TextButton(
-                        onPressed: () {
-                          setCurrentCategory(cateogryList[index]);
-                        },
-                        child: Text(
-                          '$category',
-                          style: TextStyle(
-                            color: _currentCategory == cateogryList[index]
-                                ? Theme.of(context).colorScheme.primary
-                                : Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
             Container(
               decoration: const BoxDecoration(
                 color: Colors.white,
@@ -191,7 +120,7 @@ class _HomePageState extends State<HomePage> {
     }
 
     return SizedBox(
-      height: 200, // 높이를 더 줄일 수도 있습니다
+      height: 200,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: snapshot.data!.length,
