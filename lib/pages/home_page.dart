@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wit_app/bloc/position/position_bloc.dart';
-import 'package:wit_app/bloc/position/position_event.dart';
 import 'package:wit_app/models/location.dart';
 import 'package:wit_app/servcies/api_service.dart';
 import 'package:wit_app/types/category_type.dart';

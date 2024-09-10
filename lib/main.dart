@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:wit_app/bloc/category/category_bloc.dart';
 import 'package:wit_app/bloc/location/location_bloc.dart';
 import 'package:wit_app/bloc/position/position_bloc.dart';
 import 'package:wit_app/pages/default_page.dart';
@@ -65,6 +66,9 @@ class _AppState extends State<App> {
           BlocProvider(
             create: (context) =>
                 PositionBloc(positionRepository: positionRepository),
+          ),
+          BlocProvider(
+            create: (context) => CategoryBloc(),
           ),
         ],
         child: Scaffold(

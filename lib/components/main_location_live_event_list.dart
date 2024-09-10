@@ -34,7 +34,7 @@ class MainLocationLiveEventList extends StatelessWidget {
                 child: Text(
                   'See all',
                   style: TextStyle(
-                    fontWeight: FontWeight.w800,
+                    fontWeight: FontWeight.w600,
                     fontSize: 15,
                     color: Theme.of(context).colorScheme.primary,
                   ),

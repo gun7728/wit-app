@@ -45,7 +45,7 @@ class LocationList extends StatelessWidget {
         ),
         Positioned(
           left: 5,
-          bottom: 40,
+          bottom: 5,
           child: ConstrainedBox(
             // width: 180,
             constraints: const BoxConstraints(
@@ -74,37 +74,38 @@ class LocationList extends StatelessWidget {
             ),
           ),
         ),
-        Positioned(
-          left: 5,
-          bottom: 5,
-          child: ConstrainedBox(
-            // width: 180,
-            constraints: const BoxConstraints(
-              maxWidth: 180,
-            ),
-            child: IntrinsicWidth(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: const Color(0xFF4D5653),
-                  borderRadius: BorderRadius.circular(45),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    addr1,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 10.0,
+        if (addr1 != '')
+          Positioned(
+            left: 5,
+            bottom: 45,
+            child: ConstrainedBox(
+              // width: 180,
+              constraints: const BoxConstraints(
+                maxWidth: 180,
+              ),
+              child: IntrinsicWidth(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF4D5653),
+                    borderRadius: BorderRadius.circular(45),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      addr1,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10.0,
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
           ),
-        ),
       ],
     );
   }
