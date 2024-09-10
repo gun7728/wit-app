@@ -51,8 +51,8 @@ class _MapPageState extends State<MapPage> {
               mapController: mapController,
               options: MapOptions(
                 initialCenter: LatLng(
-                  currentPositon.latitude ?? 37.568477,
-                  currentPositon.longitude ?? 126.981611,
+                  currentPositon.latitude,
+                  currentPositon.longitude,
                 ),
                 initialZoom: 13.0,
               ),
