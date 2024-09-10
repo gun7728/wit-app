@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'location.dart';
+part of 'spot.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-Location _$LocationFromJson(Map<String, dynamic> json) {
-  return _Location.fromJson(json);
+Spot _$SpotFromJson(Map<String, dynamic> json) {
+  return _Spot.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Location {
+mixin _$Spot {
   String get addr1 => throw _privateConstructorUsedError;
   String get addr2 => throw _privateConstructorUsedError;
   String get areacode => throw _privateConstructorUsedError;
@@ -42,20 +42,19 @@ mixin _$Location {
   String get tel => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
 
-  /// Serializes this Location to a JSON map.
+  /// Serializes this Spot to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of Location
+  /// Create a copy of Spot
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $LocationCopyWith<Location> get copyWith =>
-      throw _privateConstructorUsedError;
+  $SpotCopyWith<Spot> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LocationCopyWith<$Res> {
-  factory $LocationCopyWith(Location value, $Res Function(Location) then) =
-      _$LocationCopyWithImpl<$Res, Location>;
+abstract class $SpotCopyWith<$Res> {
+  factory $SpotCopyWith(Spot value, $Res Function(Spot) then) =
+      _$SpotCopyWithImpl<$Res, Spot>;
   @useResult
   $Res call(
       {String addr1,
@@ -82,16 +81,16 @@ abstract class $LocationCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$LocationCopyWithImpl<$Res, $Val extends Location>
-    implements $LocationCopyWith<$Res> {
-  _$LocationCopyWithImpl(this._value, this._then);
+class _$SpotCopyWithImpl<$Res, $Val extends Spot>
+    implements $SpotCopyWith<$Res> {
+  _$SpotCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of Location
+  /// Create a copy of Spot
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -208,11 +207,10 @@ class _$LocationCopyWithImpl<$Res, $Val extends Location>
 }
 
 /// @nodoc
-abstract class _$$LocationImplCopyWith<$Res>
-    implements $LocationCopyWith<$Res> {
-  factory _$$LocationImplCopyWith(
-          _$LocationImpl value, $Res Function(_$LocationImpl) then) =
-      __$$LocationImplCopyWithImpl<$Res>;
+abstract class _$$SpotImplCopyWith<$Res> implements $SpotCopyWith<$Res> {
+  factory _$$SpotImplCopyWith(
+          _$SpotImpl value, $Res Function(_$SpotImpl) then) =
+      __$$SpotImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -240,14 +238,13 @@ abstract class _$$LocationImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$LocationImplCopyWithImpl<$Res>
-    extends _$LocationCopyWithImpl<$Res, _$LocationImpl>
-    implements _$$LocationImplCopyWith<$Res> {
-  __$$LocationImplCopyWithImpl(
-      _$LocationImpl _value, $Res Function(_$LocationImpl) _then)
+class __$$SpotImplCopyWithImpl<$Res>
+    extends _$SpotCopyWithImpl<$Res, _$SpotImpl>
+    implements _$$SpotImplCopyWith<$Res> {
+  __$$SpotImplCopyWithImpl(_$SpotImpl _value, $Res Function(_$SpotImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of Location
+  /// Create a copy of Spot
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -274,7 +271,7 @@ class __$$LocationImplCopyWithImpl<$Res>
     Object? tel = null,
     Object? title = null,
   }) {
-    return _then(_$LocationImpl(
+    return _then(_$SpotImpl(
       addr1: null == addr1
           ? _value.addr1
           : addr1 // ignore: cast_nullable_to_non_nullable
@@ -365,8 +362,8 @@ class __$$LocationImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$LocationImpl implements _Location {
-  _$LocationImpl(
+class _$SpotImpl implements _Spot {
+  _$SpotImpl(
       {this.addr1 = "",
       this.addr2 = "",
       this.areacode = "",
@@ -389,8 +386,8 @@ class _$LocationImpl implements _Location {
       this.tel = "",
       this.title = ""});
 
-  factory _$LocationImpl.fromJson(Map<String, dynamic> json) =>
-      _$$LocationImplFromJson(json);
+  factory _$SpotImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SpotImplFromJson(json);
 
   @override
   @JsonKey()
@@ -458,14 +455,14 @@ class _$LocationImpl implements _Location {
 
   @override
   String toString() {
-    return 'Location(addr1: $addr1, addr2: $addr2, areacode: $areacode, booktour: $booktour, cat1: $cat1, cat2: $cat2, cat3: $cat3, contentid: $contentid, contenttypeid: $contenttypeid, cpyrht: $cpyrht, createdtime: $createdtime, dist: $dist, firstimage: $firstimage, firstimage2: $firstimage2, mapx: $mapx, mapy: $mapy, mlevel: $mlevel, modifiedtime: $modifiedtime, sigungucode: $sigungucode, tel: $tel, title: $title)';
+    return 'Spot(addr1: $addr1, addr2: $addr2, areacode: $areacode, booktour: $booktour, cat1: $cat1, cat2: $cat2, cat3: $cat3, contentid: $contentid, contenttypeid: $contenttypeid, cpyrht: $cpyrht, createdtime: $createdtime, dist: $dist, firstimage: $firstimage, firstimage2: $firstimage2, mapx: $mapx, mapy: $mapy, mlevel: $mlevel, modifiedtime: $modifiedtime, sigungucode: $sigungucode, tel: $tel, title: $title)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LocationImpl &&
+            other is _$SpotImpl &&
             (identical(other.addr1, addr1) || other.addr1 == addr1) &&
             (identical(other.addr2, addr2) || other.addr2 == addr2) &&
             (identical(other.areacode, areacode) ||
@@ -525,24 +522,24 @@ class _$LocationImpl implements _Location {
         title
       ]);
 
-  /// Create a copy of Location
+  /// Create a copy of Spot
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$LocationImplCopyWith<_$LocationImpl> get copyWith =>
-      __$$LocationImplCopyWithImpl<_$LocationImpl>(this, _$identity);
+  _$$SpotImplCopyWith<_$SpotImpl> get copyWith =>
+      __$$SpotImplCopyWithImpl<_$SpotImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LocationImplToJson(
+    return _$$SpotImplToJson(
       this,
     );
   }
 }
 
-abstract class _Location implements Location {
-  factory _Location(
+abstract class _Spot implements Spot {
+  factory _Spot(
       {final String addr1,
       final String addr2,
       final String areacode,
@@ -563,10 +560,9 @@ abstract class _Location implements Location {
       final String modifiedtime,
       final String sigungucode,
       final String tel,
-      final String title}) = _$LocationImpl;
+      final String title}) = _$SpotImpl;
 
-  factory _Location.fromJson(Map<String, dynamic> json) =
-      _$LocationImpl.fromJson;
+  factory _Spot.fromJson(Map<String, dynamic> json) = _$SpotImpl.fromJson;
 
   @override
   String get addr1;
@@ -611,10 +607,10 @@ abstract class _Location implements Location {
   @override
   String get title;
 
-  /// Create a copy of Location
+  /// Create a copy of Spot
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$LocationImplCopyWith<_$LocationImpl> get copyWith =>
+  _$$SpotImplCopyWith<_$SpotImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

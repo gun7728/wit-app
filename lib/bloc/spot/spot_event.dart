@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:wit_app/models/position.dart';
 
-abstract class LocationEvent extends Equatable {}
+abstract class SpotEvent extends Equatable {}
 
-class ListLocationsEvent extends LocationEvent {
+class GetSpotList extends SpotEvent {
   final Position position;
   final int type;
 
-  ListLocationsEvent({
+  GetSpotList({
     required this.position,
     required this.type,
   });
@@ -16,12 +16,12 @@ class ListLocationsEvent extends LocationEvent {
   List<Object?> get props => [position, type];
 }
 
-class AllListLocationEvent extends LocationEvent {
+class GetAllSpotList extends SpotEvent {
   final Position position;
   final int type;
   final int page;
 
-  AllListLocationEvent(
+  GetAllSpotList(
       {required this.position, required this.type, required this.page});
 
   @override

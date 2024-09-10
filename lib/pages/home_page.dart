@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wit_app/bloc/category/category_event.dart';
 import 'package:wit_app/bloc/category/category_bloc.dart' as category_bloc;
+import 'package:wit_app/bloc/category/category_event.dart';
 import 'package:wit_app/bloc/category/category_state.dart' as category_state;
-
-import 'package:wit_app/bloc/location/location_bloc.dart' as location_bloc;
-import 'package:wit_app/bloc/location/location_state.dart' as location_state;
-
 import 'package:wit_app/bloc/position/position_bloc.dart' as position_bloc;
-import 'package:wit_app/bloc/position/position_state.dart' as position_state;
-
 import 'package:wit_app/bloc/position/position_event.dart';
-import 'package:wit_app/bloc/location/location_event.dart';
+import 'package:wit_app/bloc/position/position_state.dart' as position_state;
+import 'package:wit_app/bloc/spot/spot_bloc.dart' as spot_bloc;
+import 'package:wit_app/bloc/spot/spot_event.dart';
+import 'package:wit_app/bloc/spot/spot_state.dart' as spot_state;
 import 'package:wit_app/components/category.dart';
-import 'package:wit_app/components/home/live/live_event_list.dart';
+import 'package:wit_app/components/home/preview/preview_list.dart';
 import 'package:wit_app/components/home/search_bar.dart';
 
 class HomePage extends StatefulWidget {
@@ -44,8 +41,8 @@ class _HomePageState extends State<HomePage> {
 
     if (positionState is position_state.Loaded &&
         categoryState is category_state.Loaded) {
-      context.read<location_bloc.LocationBloc>().add(
-            ListLocationsEvent(
+      context.read<spot_bloc.SpotBloc>().add(
+            GetSpotList(
               position: positionState.position,
               type: categoryState.currentCategory,
             ),
@@ -87,16 +84,14 @@ class _HomePageState extends State<HomePage> {
                       const MainSearchBar(),
                       const SizedBox(height: 20),
                       const MainCategoryList(),
-                      BlocBuilder<location_bloc.LocationBloc,
-                          location_state.LocationState>(
+                      BlocBuilder<spot_bloc.SpotBloc, spot_state.SpotState>(
                         builder: (context, locationState) {
-                          if (locationState is location_state.Loading) {
+                          if (locationState is spot_state.Loading) {
                             return const Center(
                                 child: CircularProgressIndicator());
-                          } else if (locationState is location_state.Loaded) {
-                            return LiveEventList(
-                                locations: locationState.locations);
-                          } else if (locationState is location_state.Error) {
+                          } else if (locationState is spot_state.Loaded) {
+                            return PreviewList(spots: locationState.spots);
+                          } else if (locationState is spot_state.Error) {
                             return Center(child: Text(locationState.message));
                           }
                           return const Center(child: Text('No data'));

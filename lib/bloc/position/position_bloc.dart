@@ -23,9 +23,11 @@ class PositionBloc extends Bloc<PositionEvent, PositionState> {
       GetPositionEvent event, Emitter<PositionState> emit) async {
     try {
       emit(Loading());
-      final position = await positionRepository.setPostion();
+      final position = await positionRepository.getPostion();
+      final positionKor = await positionRepository.getPostionKor();
+
       if (position != null) {
-        emit(Loaded(position: position));
+        emit(Loaded(position: position, positionKor: positionKor));
       } else {
         emit(Error(message: "Failed to retrieve position."));
       }

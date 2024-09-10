@@ -24,9 +24,10 @@ class Error extends PositionState {
 
 class Loaded extends PositionState {
   final Position position;
+  final String? positionKor;
 
-  Loaded({required this.position});
+  Loaded({required this.position, this.positionKor});
 
   @override
-  List<Object?> get props => [position];
+  List<Object?> get props => [position, positionKor];
 }

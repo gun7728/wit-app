@@ -8,7 +8,7 @@ part of 'category.dart';
 
 _$CategoryImpl _$$CategoryImplFromJson(Map<String, dynamic> json) =>
     _$CategoryImpl(
-      currentCategory: (json['currentCategory'] as num?)?.toInt() ?? 15,
+      currentCategory: (json['currentCategory'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$$CategoryImplToJson(_$CategoryImpl instance) =>

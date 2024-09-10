@@ -1,11 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'location.freezed.dart';
-part 'location.g.dart';
+part 'spot.freezed.dart';
+part 'spot.g.dart';
 
 @freezed
-class Location with _$Location {
-  factory Location({
+class Spot with _$Spot {
+  factory Spot({
     @Default("") String addr1,
     @Default("") String addr2,
     @Default("") String areacode,
@@ -27,8 +27,7 @@ class Location with _$Location {
     @Default("") String sigungucode,
     @Default("") String tel,
     @Default("") String title,
-  }) = _Location;
+  }) = _Spot;
 
-  factory Location.fromJson(Map<String, dynamic> json) =>
-      _$LocationFromJson(json);
+  factory Spot.fromJson(Map<String, dynamic> json) => _$SpotFromJson(json);
 }

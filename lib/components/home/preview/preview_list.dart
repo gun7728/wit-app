@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wit_app/bloc/category/category_bloc.dart';
 import 'package:wit_app/bloc/position/position_bloc.dart';
 import 'package:wit_app/components/home/all_event_list.dart';
-import 'package:wit_app/components/home/live/live_event_list_item.dart';
-import 'package:wit_app/models/location.dart';
+import 'package:wit_app/components/home/preview/preview_list_item.dart';
+import 'package:wit_app/models/spot.dart';
 
-class LiveEventList extends StatelessWidget {
-  final List<Location> locations;
-  const LiveEventList({super.key, required this.locations});
+class PreviewList extends StatelessWidget {
+  final List<Spot> spots;
+  const PreviewList({super.key, required this.spots});
 
   @override
   Widget build(BuildContext context) {
@@ -69,15 +69,15 @@ class LiveEventList extends StatelessWidget {
           child: ListView.builder(
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
-            itemCount: locations.length,
+            itemCount: spots.length,
             itemBuilder: (context, index) {
-              var locationData = locations[index];
+              var locationData = spots[index];
               return Row(
                 children: [
                   const SizedBox(
                     width: 10,
                   ),
-                  LiveEventListItem(
+                  PreviewListItem(
                     title: locationData.title,
                     addr1: locationData.addr1,
                     tel: locationData.tel,

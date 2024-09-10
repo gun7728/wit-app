@@ -1,13 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'location.dart';
+part of 'spot.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$LocationImpl _$$LocationImplFromJson(Map<String, dynamic> json) =>
-    _$LocationImpl(
+_$SpotImpl _$$SpotImplFromJson(Map<String, dynamic> json) => _$SpotImpl(
       addr1: json['addr1'] as String? ?? "",
       addr2: json['addr2'] as String? ?? "",
       areacode: json['areacode'] as String? ?? "",
@@ -31,7 +30,7 @@ _$LocationImpl _$$LocationImplFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String? ?? "",
     );
 
-Map<String, dynamic> _$$LocationImplToJson(_$LocationImpl instance) =>
+Map<String, dynamic> _$$SpotImplToJson(_$SpotImpl instance) =>
     <String, dynamic>{
       'addr1': instance.addr1,
       'addr2': instance.addr2,

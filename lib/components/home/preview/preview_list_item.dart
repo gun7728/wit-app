@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class LiveEventListItem extends StatelessWidget {
+class PreviewListItem extends StatelessWidget {
   final String title;
   final String addr1;
   final String tel;
   final String firstimage;
   final String contentid;
 
-  const LiveEventListItem({
+  const PreviewListItem({
     super.key,
     required this.title,
     required this.addr1,

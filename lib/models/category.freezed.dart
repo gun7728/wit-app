@@ -104,7 +104,7 @@ class __$$CategoryImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$CategoryImpl implements _Category {
-  _$CategoryImpl({this.currentCategory = 15});
+  _$CategoryImpl({this.currentCategory = 0});
 
   factory _$CategoryImpl.fromJson(Map<String, dynamic> json) =>
       _$$CategoryImplFromJson(json);

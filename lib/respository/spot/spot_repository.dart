@@ -1,15 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:wit_app/models/location.dart';
+import 'package:wit_app/models/spot.dart';
 
-class LocationRepository {
+class SpotRepository {
   final Dio _dio = Dio(); // Dio 인스턴스 생성
   final publicKey = dotenv.get('TOUR_API_ECD_KEY');
   final baseUrl = dotenv.get('BASE_URL');
 
   get http => null;
 
-  Future<List<Location>> listLocations({position, type, page = 1}) async {
+  Future<List<Spot>> getSpotList({position, type, page = 1}) async {
     final mapX = position.longitude;
     final mapY = position.latitude;
 
@@ -32,7 +32,7 @@ class LocationRepository {
         if (items is List) {
           // List<Location>로 변환
           return items
-              .map((item) => Location.fromJson(item as Map<String, dynamic>))
+              .map((item) => Spot.fromJson(item as Map<String, dynamic>))
               .toList();
         } else {
           throw Exception('Expected a List of items');
