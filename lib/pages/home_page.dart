@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:wit_app/models/location.dart';
-import 'package:wit_app/servcies/api_service.dart';
-import 'package:wit_app/types/category_type.dart';
-import 'package:wit_app/components/main_location_list.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wit_app/bloc/category/category_event.dart';
+import 'package:wit_app/bloc/category/category_bloc.dart' as category_bloc;
+import 'package:wit_app/bloc/category/category_state.dart' as category_state;
+
+import 'package:wit_app/bloc/location/location_bloc.dart' as location_bloc;
+import 'package:wit_app/bloc/location/location_state.dart' as location_state;
+
+import 'package:wit_app/bloc/position/position_bloc.dart' as position_bloc;
+import 'package:wit_app/bloc/position/position_state.dart' as position_state;
+
+import 'package:wit_app/bloc/position/position_event.dart';
+import 'package:wit_app/bloc/location/location_event.dart';
+import 'package:wit_app/components/category.dart';
+import 'package:wit_app/components/home/live/live_event_list.dart';
+import 'package:wit_app/components/home/search_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,133 +24,89 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _currentCategory = 15;
-  late Future<List<Location>> eventLists;
-
-  String currentLocation = '현위치';
-
-  List<int> cateogryList = categoryType.keys.toList();
-
   @override
   void initState() {
     super.initState();
-    eventLists = ApiService().getEventList(_currentCategory);
+
+    final positionBloc = BlocProvider.of<position_bloc.PositionBloc>(context);
+    if (positionBloc.state is position_state.Empty) {
+      positionBloc.add(InitPositionEvent());
+    }
+    final categoryBloc = BlocProvider.of<category_bloc.CategoryBloc>(context);
+    if (categoryBloc.state is category_state.Empty) {
+      categoryBloc.add(SetCateogryEvnet(currentCategory: 15));
+    }
   }
 
-  void setCurrentCategory(int category) {
-    setState(() {
-      _currentCategory = category;
-      eventLists = ApiService().getEventList(_currentCategory);
-    });
+  void _updateLocations(BuildContext context) {
+    final positionState = context.read<position_bloc.PositionBloc>().state;
+    final categoryState = context.read<category_bloc.CategoryBloc>().state;
+
+    if (positionState is position_state.Loaded &&
+        categoryState is category_state.Loaded) {
+      context.read<location_bloc.LocationBloc>().add(
+            ListLocationsEvent(
+              position: positionState.position,
+              type: categoryState.currentCategory,
+            ),
+          );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<position_bloc.PositionBloc, position_state.PositionState>(
+          listener: (context, positionState) {
+            if (positionState is position_state.Loaded) {
+              _updateLocations(context);
+            }
+          },
         ),
-        child: Column(
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-              ),
-              child: FutureBuilder(
-                future: eventLists,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Column(
-                      children: [
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const SizedBox(
-                                child: Text(
-                                  'Live Event',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w800,
-                                    fontSize: 22,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                              TextButton(
-                                onPressed: () {},
-                                child: Text(
-                                  'See all',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w800,
-                                    fontSize: 15,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 340,
-                          child: makePageView(snapshot),
-                        )
-                      ],
-                    );
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
-                  }
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                },
-              ),
-            ),
-            const SizedBox(
-              height: 400,
-            )
-          ],
+        BlocListener<category_bloc.CategoryBloc, category_state.CategoryState>(
+          listener: (context, categoryState) {
+            if (categoryState is category_state.Loaded) {
+              _updateLocations(context);
+            }
+          },
         ),
-      ),
-    );
-  }
-
-  Widget makePageView(AsyncSnapshot<List<Location>> snapshot) {
-    if (snapshot.data == null || snapshot.data!.isEmpty) {
-      return const Center(
-        child: Text('No data available'),
-      );
-    }
-
-    return SizedBox(
-      height: 200,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: snapshot.data!.length,
-        itemBuilder: (context, index) {
-          var locationData = snapshot.data![index];
-          return Row(
-            children: [
-              const SizedBox(
-                width: 10,
-              ),
-              LocationList(
-                title: locationData.title,
-                addr1: locationData.addr1,
-                tel: locationData.tel,
-                firstimage: locationData.firstimage,
-                contentid: locationData.contentid,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-            ],
+      ],
+      child:
+          BlocBuilder<position_bloc.PositionBloc, position_state.PositionState>(
+        builder: (context, positionState) {
+          return BlocBuilder<category_bloc.CategoryBloc,
+              category_state.CategoryState>(
+            builder: (context, categoryState) {
+              return SingleChildScrollView(
+                child: Container(
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 20),
+                      const MainSearchBar(),
+                      const SizedBox(height: 20),
+                      const MainCategoryList(),
+                      BlocBuilder<location_bloc.LocationBloc,
+                          location_state.LocationState>(
+                        builder: (context, locationState) {
+                          if (locationState is location_state.Loading) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          } else if (locationState is location_state.Loaded) {
+                            return LiveEventList(
+                                locations: locationState.locations);
+                          } else if (locationState is location_state.Error) {
+                            return Center(child: Text(locationState.message));
+                          }
+                          return const Center(child: Text('No data'));
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
           );
         },
       ),

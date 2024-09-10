@@ -9,14 +9,16 @@ class LocationRepository {
 
   get http => null;
 
-  Future<List<Location>> listLocations({position, type}) async {
+  Future<List<Location>> listLocations({position, type, page = 1}) async {
     final mapX = position.longitude;
     final mapY = position.latitude;
 
     final locationBasedListUrl =
-        'locationBasedList1?serviceKey=$publicKey&numOfRows=10&pageNo=0&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A&mapX=$mapX&mapY=$mapY&radius=1000&contentTypeId=$type';
+        'locationBasedList1?serviceKey=$publicKey&numOfRows=10&pageNo=$page&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A&mapX=$mapX&mapY=$mapY&radius=1000&contentTypeId=$type';
 
     final String url = '$baseUrl/$locationBasedListUrl';
+
+    print(url);
 
     try {
       final response = await _dio.get(url.toString());

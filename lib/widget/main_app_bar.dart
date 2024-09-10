@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:wit_app/bloc/position/position_bloc.dart';
 import 'package:wit_app/bloc/position/position_event.dart';
+import 'package:wit_app/bloc/position/position_state.dart';
 import 'package:wit_app/servcies/api_service.dart';
 import 'package:wit_app/servcies/location_service.dart';
 
@@ -20,22 +21,27 @@ class _MainAppBarState extends State<MainAppBar> {
   String currentLocation = 'Current Location';
 
   Future<void> onPressLocation() async {
-    Position position = await LocationService().getCurrentPosition();
+    // final positionBloc = BlocProvider.of<PositionBloc>(context);
+    final positionState = context.read<PositionBloc>().state;
 
-    final result = await ApiService()
-        .getCurrentLocation(position.longitude, position.latitude);
+    if (positionState is Loaded) {
+      Position position = await LocationService().getCurrentPosition();
 
-    if (mounted) {
-      setState(() {
-        currentLocation = result['structure']['level4A'];
-      });
+      final result = await ApiService()
+          .getCurrentLocation(position.longitude, position.latitude);
 
-      context.read<PositionBloc>().add(
-            SetPositionEvent(
-              longitude: position.longitude,
-              latitude: position.latitude,
-            ),
-          );
+      if (mounted) {
+        setState(() {
+          currentLocation = result['structure']['level4A'];
+        });
+
+        context.read<PositionBloc>().add(
+              SetPositionEvent(
+                longitude: position.longitude,
+                latitude: position.latitude,
+              ),
+            );
+      }
     }
   }
 

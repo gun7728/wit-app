@@ -4,7 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:wit_app/bloc/category/category_bloc.dart';
 import 'package:wit_app/bloc/location/location_bloc.dart';
 import 'package:wit_app/bloc/position/position_bloc.dart';
-import 'package:wit_app/pages/default_page.dart';
+import 'package:wit_app/pages/home_page.dart';
 import 'package:wit_app/pages/map_page.dart';
 import 'package:wit_app/pages/my_page.dart';
 import 'package:wit_app/respository/location/location_repository.dart';
@@ -30,7 +30,7 @@ class _AppState extends State<App> {
   String currentLocation = '현위치';
 
   final List<Widget> _pages = [
-    const DefaultPage(),
+    const HomePage(),
     const MyPage(),
     const MapPage(),
   ];

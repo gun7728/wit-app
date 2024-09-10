@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:wit_app/components/main_location_list.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wit_app/bloc/category/category_bloc.dart';
+import 'package:wit_app/bloc/position/position_bloc.dart';
+import 'package:wit_app/components/home/all_event_list.dart';
+import 'package:wit_app/components/home/live/live_event_list_item.dart';
 import 'package:wit_app/models/location.dart';
 
-class MainLocationLiveEventList extends StatelessWidget {
+class LiveEventList extends StatelessWidget {
   final List<Location> locations;
-  const MainLocationLiveEventList({super.key, required this.locations});
+  const LiveEventList({super.key, required this.locations});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +25,7 @@ class MainLocationLiveEventList extends StatelessWidget {
             children: [
               const SizedBox(
                 child: Text(
-                  'Live Event',
+                  'Events',
                   style: TextStyle(
                     fontWeight: FontWeight.w800,
                     fontSize: 22,
@@ -30,7 +34,24 @@ class MainLocationLiveEventList extends StatelessWidget {
                 ),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (contextLoginScreen) {
+                      return MultiBlocProvider(
+                        providers: [
+                          BlocProvider.value(
+                            value: BlocProvider.of<CategoryBloc>(context),
+                          ),
+                          BlocProvider.value(
+                            value: BlocProvider.of<PositionBloc>(context),
+                          )
+                        ],
+                        child: const MainAllLocationList(),
+                      );
+                    }),
+                  );
+                },
                 child: Text(
                   'See all',
                   style: TextStyle(
@@ -56,7 +77,7 @@ class MainLocationLiveEventList extends StatelessWidget {
                   const SizedBox(
                     width: 10,
                   ),
-                  LocationList(
+                  LiveEventListItem(
                     title: locationData.title,
                     addr1: locationData.addr1,
                     tel: locationData.tel,
