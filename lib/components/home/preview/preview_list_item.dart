@@ -26,21 +26,28 @@ class PreviewListItem extends StatelessWidget {
           height: 320,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(25),
-            child: Image.network(
-              firstimage,
-              fit: BoxFit.fitHeight,
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              errorBuilder: (context, error, stackTrace) {
-                // 네트워크 이미지 로딩 실패 시 대체 이미지 표시
-                return Image.asset(
-                  'assets/noImg.webp',
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
-                  fit: BoxFit.fitHeight,
-                );
-              },
-            ),
+            child: firstimage != ''
+                ? Image.network(
+                    firstimage,
+                    fit: BoxFit.fitHeight,
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    errorBuilder: (context, error, stackTrace) {
+                      // 네트워크 이미지 로딩 실패 시 대체 이미지 표시
+                      return Image.asset(
+                        'assets/noImg.webp',
+                        height: MediaQuery.of(context).size.height,
+                        width: MediaQuery.of(context).size.width,
+                        fit: BoxFit.fitHeight,
+                      );
+                    },
+                  )
+                : Image.asset(
+                    'assets/noImg.webp',
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    fit: BoxFit.fitHeight,
+                  ),
           ),
         ),
         Positioned(

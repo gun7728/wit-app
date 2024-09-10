@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wit_app/bloc/category/category_bloc.dart';
 import 'package:wit_app/bloc/position/position_bloc.dart';
+import 'package:wit_app/bloc/spot/spot_bloc.dart';
 import 'package:wit_app/components/home/all_event_list.dart';
 import 'package:wit_app/components/home/preview/preview_list_item.dart';
 import 'package:wit_app/models/spot.dart';
@@ -45,6 +46,9 @@ class PreviewList extends StatelessWidget {
                           ),
                           BlocProvider.value(
                             value: BlocProvider.of<PositionBloc>(context),
+                          ),
+                          BlocProvider.value(
+                            value: BlocProvider.of<SpotBloc>(context),
                           )
                         ],
                         child: const MainAllLocationList(),
