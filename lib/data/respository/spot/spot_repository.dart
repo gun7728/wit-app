@@ -13,8 +13,10 @@ class SpotRepository {
     final mapX = position.longitude;
     final mapY = position.latitude;
 
+    var typeString = type == 0 ? '' : '&contentTypeId=$type';
+
     final locationBasedListUrl =
-        'locationBasedList1?serviceKey=$publicKey&numOfRows=10&pageNo=$page&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A&mapX=$mapX&mapY=$mapY&radius=1000&contentTypeId=$type';
+        'locationBasedList1?serviceKey=$publicKey&numOfRows=10&pageNo=$page&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A&mapX=$mapX&mapY=$mapY&radius=1000$typeString';
 
     final String url = '$baseUrl/$locationBasedListUrl';
 

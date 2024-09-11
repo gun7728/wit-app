@@ -34,9 +34,12 @@ class MainCategoryList extends StatelessWidget {
                       return TextButton(
                         onPressed: () {
                           if (spotState is SpotLoading) return;
-                          context
-                              .read<TypeCubit>()
-                              .setType(cateogryList[index]);
+                          if (state is TypeLoaded) {
+                            context.read<TypeCubit>().setType(
+                                state.currentType == cateogryList[index]
+                                    ? 0
+                                    : cateogryList[index]);
+                          }
                         },
                         child: Text(
                           '$category',

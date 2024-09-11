@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wit_app/components/home/all_list_trigger.dart';
 import 'package:wit_app/presentation/home/bloc/position_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/position_state.dart';
 import 'package:wit_app/presentation/home/bloc/spot_cubit.dart';
@@ -80,6 +81,10 @@ class _HomeState extends State<Home> {
                       const MainSearchBar(),
                       const SizedBox(height: 20),
                       const MainCategoryList(),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const AllListTrigger(),
                       BlocBuilder<SpotCubit, SpotState>(
                         builder: (context, state) {
                           if (state is SpotLoading) {
