@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:wit_app/bloc/position/position_bloc.dart';
-import 'package:wit_app/bloc/position/position_state.dart';
-import 'package:wit_app/models/position.dart';
+import 'package:wit_app/presentation/home/bloc/position_cubit.dart';
+import 'package:wit_app/presentation/home/bloc/position_state.dart';
+import 'package:wit_app/data/models/position.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({super.key});
@@ -34,14 +34,14 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<PositionBloc, PositionState>(
+    return BlocConsumer<PositionCubit, PositionState>(
       listener: (context, state) {
-        if (state is Loaded) {
+        if (state is PositionLoaded) {
           getCurrentLocation(state.position);
         }
       },
       builder: (context, state) {
-        var currentPositon = state is Loaded
+        var currentPositon = state is PositionLoaded
             ? state.position
             : Position(latitude: 37.568477, longitude: 126.981611);
         return Stack(

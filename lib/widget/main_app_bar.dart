@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wit_app/bloc/position/position_bloc.dart';
-import 'package:wit_app/bloc/position/position_event.dart';
-import 'package:wit_app/bloc/position/position_state.dart';
+import 'package:wit_app/presentation/home/bloc/position_cubit.dart';
+import 'package:wit_app/presentation/home/bloc/position_state.dart';
 
 class MainAppBar extends StatefulWidget implements PreferredSizeWidget {
   const MainAppBar({super.key});
@@ -17,7 +16,7 @@ class MainAppBar extends StatefulWidget implements PreferredSizeWidget {
 class _MainAppBarState extends State<MainAppBar> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PositionBloc, PositionState>(
+    return BlocBuilder<PositionCubit, PositionState>(
       builder: (context, PositionState state) {
         return AppBar(
           backgroundColor: Colors.white,
@@ -43,15 +42,15 @@ class _MainAppBarState extends State<MainAppBar> {
                   ),
                   TextButton.icon(
                     onPressed: () {
-                      context.read<PositionBloc>().add(GetPositionEvent());
+                      context.read<PositionCubit>().getPosition();
                     },
                     icon: const Icon(
                       Icons.my_location,
                       size: 15,
-                      color: Color(0xfff106df4),
+                      color: Color(0xff106df4),
                     ),
                     label: Text(
-                      state is Loaded
+                      state is PositionLoaded
                           ? (state.positionKor != null
                               ? '${state.positionKor}'
                               : 'Current Location')

@@ -1,31 +1,31 @@
 import 'package:equatable/equatable.dart';
-import 'package:wit_app/models/spot.dart';
+import 'package:wit_app/data/models/spot.dart';
 
 abstract class SpotState extends Equatable {}
 
-class Empty extends SpotState {
+class SpotEmpty extends SpotState {
   @override
   List<Object?> get props => [];
 }
 
-class Loading extends SpotState {
+class SpotLoading extends SpotState {
   @override
   List<Object?> get props => [];
 }
 
-class Error extends SpotState {
+class SpotError extends SpotState {
   final String message;
 
-  Error({required this.message});
+  SpotError({required this.message});
 
   @override
   List<Object?> get props => [message];
 }
 
-class Loaded extends SpotState {
+class SpotLoaded extends SpotState {
   final List<Spot> spots;
 
-  Loaded({required this.spots});
+  SpotLoaded({required this.spots});
 
   @override
   List<Object?> get props => [spots];

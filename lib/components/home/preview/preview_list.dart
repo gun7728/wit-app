@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wit_app/bloc/category/category_bloc.dart';
-import 'package:wit_app/bloc/position/position_bloc.dart';
-import 'package:wit_app/bloc/spot/spot_bloc.dart';
+import 'package:wit_app/presentation/home/bloc/type_cubit.dart';
+import 'package:wit_app/presentation/home/bloc/position_cubit.dart';
 import 'package:wit_app/components/home/all_event_list.dart';
 import 'package:wit_app/components/home/preview/preview_list_item.dart';
-import 'package:wit_app/models/spot.dart';
+import 'package:wit_app/data/models/spot.dart';
+import 'package:wit_app/presentation/home/bloc/spot_cubit.dart';
 
 class PreviewList extends StatelessWidget {
   final List<Spot> spots;
@@ -42,13 +42,13 @@ class PreviewList extends StatelessWidget {
                       return MultiBlocProvider(
                         providers: [
                           BlocProvider.value(
-                            value: BlocProvider.of<CategoryBloc>(context),
+                            value: BlocProvider.of<TypeCubit>(context),
                           ),
                           BlocProvider.value(
-                            value: BlocProvider.of<PositionBloc>(context),
+                            value: BlocProvider.of<PositionCubit>(context),
                           ),
                           BlocProvider.value(
-                            value: BlocProvider.of<SpotBloc>(context),
+                            value: BlocProvider.of<SpotCubit>(context),
                           )
                         ],
                         child: const MainAllLocationList(),

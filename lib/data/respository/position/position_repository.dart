@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:wit_app/models/position.dart' as custom_position;
+import 'package:wit_app/data/models/position.dart' as custom_position;
 
 class PositionRepository {
   final Dio _dio = Dio(); // Dio 인스턴스 생성

@@ -3,14 +3,14 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:wit_app/bloc/category/category_bloc.dart';
-import 'package:wit_app/bloc/position/position_bloc.dart';
-import 'package:wit_app/bloc/spot/spot_bloc.dart';
-import 'package:wit_app/pages/home_page.dart';
-import 'package:wit_app/pages/map_page.dart';
-import 'package:wit_app/pages/my_page.dart';
-import 'package:wit_app/respository/position/position_repository.dart';
-import 'package:wit_app/respository/spot/spot_repository.dart';
+import 'package:wit_app/data/respository/position/position_repository.dart';
+import 'package:wit_app/data/respository/spot/spot_repository.dart';
+import 'package:wit_app/presentation/home/bloc/position_cubit.dart';
+import 'package:wit_app/presentation/home/bloc/spot_cubit.dart';
+import 'package:wit_app/presentation/home/bloc/type_cubit.dart';
+import 'package:wit_app/presentation/home/pages/home.dart';
+import 'package:wit_app/presentation/map/pages/map_page.dart';
+import 'package:wit_app/presentation/my/my_page.dart';
 import 'package:wit_app/widget/default_bottom_nav.dart';
 import 'package:wit_app/widget/main_app_bar.dart';
 
@@ -32,7 +32,7 @@ class _AppState extends State<App> {
   String currentLocation = '현위치';
 
   final List<Widget> _pages = [
-    const HomePage(),
+    const Home(),
     const MyPage(),
     const MapPage(),
   ];
@@ -63,14 +63,14 @@ class _AppState extends State<App> {
       home: MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => SpotBloc(spotRepository: spotRepository),
+            create: (context) => SpotCubit(spotRepository: spotRepository),
           ),
           BlocProvider(
             create: (context) =>
-                PositionBloc(positionRepository: positionRepository),
+                PositionCubit(positionRepository: positionRepository),
           ),
           BlocProvider(
-            create: (context) => CategoryBloc(),
+            create: (context) => TypeCubit(),
           ),
         ],
         child: Scaffold(

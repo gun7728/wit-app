@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:wit_app/models/spot.dart';
+import 'package:wit_app/data/models/spot.dart';
 
 class SpotRepository {
   final Dio _dio = Dio(); // Dio 인스턴스 생성

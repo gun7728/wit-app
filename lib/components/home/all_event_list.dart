@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wit_app/bloc/spot/spot_bloc.dart';
-import 'package:wit_app/bloc/spot/spot_state.dart';
+import 'package:wit_app/presentation/home/bloc/spot_cubit.dart';
+import 'package:wit_app/presentation/home/bloc/spot_state.dart';
 import 'package:wit_app/components/category.dart';
 import 'package:wit_app/components/home/search_bar.dart';
 
@@ -22,9 +22,9 @@ class MainAllLocationList extends StatelessWidget {
             height: 20,
           ),
           const MainCategoryList(),
-          BlocBuilder<SpotBloc, SpotState>(
+          BlocBuilder<SpotCubit, SpotState>(
             builder: (context, SpotState state) {
-              if (state is Loaded) {
+              if (state is SpotLoaded) {
                 return Expanded(
                   child: ListView.builder(
                     itemCount: state.spots.length,
