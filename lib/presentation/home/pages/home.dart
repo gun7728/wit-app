@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wit_app/components/home/all_list_trigger.dart';
+import 'package:wit_app/presentation/home/components/all_list_trigger.dart';
 import 'package:wit_app/presentation/home/bloc/position_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/position_state.dart';
 import 'package:wit_app/presentation/home/bloc/spot_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/spot_state.dart';
-import 'package:wit_app/components/category.dart';
-import 'package:wit_app/components/home/preview/preview_list.dart';
-import 'package:wit_app/components/home/search_bar.dart';
+import 'package:wit_app/presentation/home/components/category.dart';
+import 'package:wit_app/presentation/home/components/preview/preview_list.dart';
+import 'package:wit_app/presentation/home/components/search_input.dart';
 import 'package:wit_app/presentation/home/bloc/type_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/type_state.dart';
 
@@ -78,12 +78,10 @@ class _HomeState extends State<Home> {
                   child: Column(
                     children: [
                       const SizedBox(height: 20),
-                      const MainSearchBar(),
+                      const SearchInput(searchable: false),
                       const SizedBox(height: 20),
                       const MainCategoryList(),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      const SizedBox(height: 20),
                       const AllListTrigger(),
                       BlocBuilder<SpotCubit, SpotState>(
                         builder: (context, state) {

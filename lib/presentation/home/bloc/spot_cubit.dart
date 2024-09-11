@@ -8,7 +8,7 @@ class SpotCubit extends Cubit<SpotState> {
 
   SpotCubit({required this.spotRepository}) : super(SpotEmpty());
 
-  void getSpots(Position position, int type, [int? page]) async {
+  void getSpots(Position position, int? type, [int? page]) async {
     emit(SpotLoading());
     try {
       // locationRepository에서 위치 데이터를 가져옴

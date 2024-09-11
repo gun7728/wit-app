@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wit_app/components/home/preview/preview_list_item.dart';
+import 'package:wit_app/presentation/home/components/preview/preview_list_item.dart';
 import 'package:wit_app/data/models/spot.dart';
 
 class PreviewList extends StatelessWidget {
