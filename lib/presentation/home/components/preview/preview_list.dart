@@ -4,7 +4,8 @@ import 'package:wit_app/data/models/spot.dart';
 
 class PreviewList extends StatelessWidget {
   final List<Spot> spots;
-  const PreviewList({super.key, required this.spots});
+  final bool isLoading;
+  const PreviewList({super.key, required this.spots, required this.isLoading});
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,7 @@ class PreviewList extends StatelessWidget {
                     tel: locationData.tel,
                     firstimage: locationData.firstimage,
                     contentid: locationData.contentid,
+                    isLoading: isLoading,
                   ),
                   const SizedBox(
                     width: 10,

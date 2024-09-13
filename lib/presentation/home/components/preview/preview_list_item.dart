@@ -6,6 +6,7 @@ class PreviewListItem extends StatelessWidget {
   final String tel;
   final String firstimage;
   final String contentid;
+  final bool isLoading;
 
   const PreviewListItem({
     super.key,
@@ -14,6 +15,7 @@ class PreviewListItem extends StatelessWidget {
     required this.tel,
     required this.firstimage,
     required this.contentid,
+    required this.isLoading,
   });
 
   @override
@@ -50,38 +52,40 @@ class PreviewListItem extends StatelessWidget {
                   ),
           ),
         ),
-        Positioned(
-          left: 5,
-          bottom: 5,
-          child: ConstrainedBox(
-            // width: 180,
-            constraints: const BoxConstraints(
-              maxWidth: 180,
-            ),
-            child: IntrinsicWidth(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: const Color(0xFF4D5653),
-                  borderRadius: BorderRadius.circular(45),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    title,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15.0,
+        !isLoading
+            ? Positioned(
+                left: 5,
+                bottom: 5,
+                child: ConstrainedBox(
+                  // width: 180,
+                  constraints: const BoxConstraints(
+                    maxWidth: 180,
+                  ),
+                  child: IntrinsicWidth(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF4D5653),
+                        borderRadius: BorderRadius.circular(45),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                          title,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15.0,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ),
-          ),
-        ),
-        if (addr1 != '')
+              )
+            : const SizedBox.shrink(),
+        if (addr1 != '' && !isLoading)
           Positioned(
             left: 5,
             bottom: 45,

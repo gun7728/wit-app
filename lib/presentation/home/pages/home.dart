@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skeletonizer/skeletonizer.dart';
+import 'package:wit_app/data/models/spot.dart';
 import 'package:wit_app/presentation/home/components/all_list_trigger.dart';
 import 'package:wit_app/presentation/home/bloc/position_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/position_state.dart';
@@ -19,6 +21,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  bool isLoading = true;
+  List<Spot> showSpot = [];
+
   @override
   void initState() {
     super.initState();
@@ -86,20 +91,18 @@ class _HomeState extends State<Home> {
                       BlocBuilder<SpotCubit, SpotState>(
                         builder: (context, state) {
                           if (state is SpotLoading) {
-                            return const Column(
-                              children: [
-                                SizedBox(
-                                  height: 180,
-                                ),
-                                CircularProgressIndicator(),
-                              ],
-                            );
+                            isLoading = true;
                           } else if (state is SpotLoaded) {
-                            return PreviewList(spots: state.spots);
+                            isLoading = false;
+                            showSpot = state.spots;
                           } else if (state is SpotError) {
-                            return Center(child: Text(state.message));
+                            showSpot = [];
                           }
-                          return const Center(child: Text('No data'));
+                          return Skeletonizer(
+                              enabled: isLoading,
+                              child: PreviewList(
+                                  spots: showSpot, isLoading: isLoading));
+                          // return const Center(child: Text('No data'));
                         },
                       ),
                     ],

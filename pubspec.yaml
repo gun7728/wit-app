@@ -48,6 +48,7 @@ dependencies:
   bloc: ^8.1.4
   dio: ^5.7.0
   flutter_bloc: ^8.1.6
+  skeletonizer: ^1.4.2
 
 dev_dependencies:
   flutter_test:
