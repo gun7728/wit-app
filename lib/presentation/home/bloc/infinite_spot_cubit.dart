@@ -12,11 +12,6 @@ class InfiniteSpotCubit extends Cubit<InfiniteSpotState> {
   void getSpots(Position position, int? type, int page) async {
     if (state is InfiniteSpotLoading) return;
 
-    var beforeSpot = [];
-
-    if (state is InfiniteSpotLoaded) {
-      beforeSpot = (state as InfiniteSpotLoaded).spots;
-    }
     emit(InfiniteSpotLoading());
     try {
       // locationRepository에서 위치 데이터를 가져옴

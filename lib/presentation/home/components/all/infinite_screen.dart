@@ -10,7 +10,6 @@ import 'package:wit_app/presentation/home/bloc/type_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/type_state.dart';
 import 'package:wit_app/presentation/home/components/all/infinite_list_item.dart';
 import 'package:wit_app/presentation/home/components/all/bottom_loader.dart';
-import 'package:wit_app/presentation/home/components/all/infinite_list_item.dart';
 
 class InfiniteScreen extends StatefulWidget {
   const InfiniteScreen({
