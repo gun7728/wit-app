@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:wit_app/data/respository/position/position_repository.dart';
 import 'package:wit_app/data/respository/spot/spot_repository.dart';
+import 'package:wit_app/presentation/home/bloc/infinite_spot_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/position_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/spot_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/type_cubit.dart';
@@ -71,6 +72,10 @@ class _AppState extends State<App> {
           ),
           BlocProvider(
             create: (context) => TypeCubit(),
+          ),
+          BlocProvider(
+            create: (context) =>
+                InfiniteSpotCubit(spotRepository: spotRepository),
           ),
         ],
         child: Scaffold(

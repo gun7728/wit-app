@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class PreviewListItem extends StatelessWidget {
@@ -29,13 +30,14 @@ class PreviewListItem extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(25),
             child: firstimage != ''
-                ? Image.network(
-                    firstimage,
+                ? CachedNetworkImage(
                     fit: BoxFit.fitHeight,
                     height: MediaQuery.of(context).size.height,
                     width: MediaQuery.of(context).size.width,
-                    errorBuilder: (context, error, stackTrace) {
-                      // 네트워크 이미지 로딩 실패 시 대체 이미지 표시
+                    imageUrl: firstimage,
+                    placeholder: (context, url) =>
+                        const Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) {
                       return Image.asset(
                         'assets/noImg.webp',
                         height: MediaQuery.of(context).size.height,

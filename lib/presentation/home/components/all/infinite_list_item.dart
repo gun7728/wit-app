@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:wit_app/data/models/spot.dart';
 
@@ -17,11 +18,14 @@ class InfiniteListItem extends StatelessWidget {
           if (spot.firstimage.isNotEmpty)
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                spot.firstimage,
+              child: CachedNetworkImage(
+                imageUrl: spot.firstimage,
                 width: double.infinity,
                 height: 200,
                 fit: BoxFit.cover,
+                placeholder: (context, url) =>
+                    const Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             )
           else
