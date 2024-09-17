@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wit_app/presentation/home/bloc/position_cubit.dart';
-import 'package:wit_app/presentation/home/bloc/spot_cubit.dart';
+import 'package:wit_app/presentation/home/bloc/spots_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/type_cubit.dart';
 import 'package:wit_app/presentation/home/components/search/search_list.dart';
 
@@ -38,7 +38,7 @@ class SearchInput extends StatelessWidget {
                         value: BlocProvider.of<PositionCubit>(context),
                       ),
                       BlocProvider.value(
-                        value: BlocProvider.of<SpotCubit>(context),
+                        value: BlocProvider.of<SpotsCubit>(context),
                       )
                     ],
                     child: const SearchList(),

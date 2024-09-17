@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:wit_app/data/models/spot.dart';
+import 'package:wit_app/data/models/spots.dart';
 import 'package:wit_app/presentation/home/components/all_list_trigger.dart';
 import 'package:wit_app/presentation/home/bloc/position_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/position_state.dart';
-import 'package:wit_app/presentation/home/bloc/spot_cubit.dart';
-import 'package:wit_app/presentation/home/bloc/spot_state.dart';
+import 'package:wit_app/presentation/home/bloc/spots_cubit.dart';
+import 'package:wit_app/presentation/home/bloc/spots_state.dart';
 import 'package:wit_app/presentation/home/components/category.dart';
 import 'package:wit_app/presentation/home/components/preview/preview_list.dart';
 import 'package:wit_app/presentation/home/components/search_input.dart';
@@ -22,7 +22,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   bool isLoading = true;
-  List<Spot> showSpot = [];
+  List<Spots> showSpot = [];
 
   @override
   void initState() {
@@ -46,9 +46,9 @@ class _HomeState extends State<Home> {
     final typeState = context.read<TypeCubit>().state;
 
     if (positionState is PositionLoaded && typeState is TypeLoaded) {
-      if (context.read<SpotCubit>().state is! SpotLoading) {
+      if (context.read<SpotsCubit>().state is! SpotsLoading) {
         context
-            .read<SpotCubit>()
+            .read<SpotsCubit>()
             .getSpots(positionState.position, typeState.currentType);
       }
     }
@@ -88,20 +88,27 @@ class _HomeState extends State<Home> {
                       const MainCategoryList(),
                       const SizedBox(height: 20),
                       const AllListTrigger(),
-                      BlocBuilder<SpotCubit, SpotState>(
+                      BlocBuilder<SpotsCubit, SpotsState>(
                         builder: (context, state) {
-                          if (state is SpotLoading) {
+                          if (state is SpotsLoading) {
                             isLoading = true;
-                          } else if (state is SpotLoaded) {
+                          } else if (state is SpotsLoaded) {
                             isLoading = false;
                             showSpot = state.spots;
-                          } else if (state is SpotError) {
+                          } else if (state is SpotsError) {
                             showSpot = [];
                           }
-                          return Skeletonizer(
-                              enabled: isLoading,
-                              child: PreviewList(
-                                  spots: showSpot, isLoading: isLoading));
+                          return showSpot.isEmpty
+                              ? const SizedBox(
+                                  height: 200,
+                                  child: Center(
+                                    child: Text('No Datas'),
+                                  ),
+                                )
+                              : Skeletonizer(
+                                  enabled: isLoading,
+                                  child: PreviewList(
+                                      spots: showSpot, isLoading: isLoading));
                           // return const Center(child: Text('No data'));
                         },
                       ),

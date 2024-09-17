@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:wit_app/data/models/spot.dart';
+import 'package:wit_app/data/models/spots.dart';
 
 abstract class InfiniteSpotState extends Equatable {}
 
@@ -23,7 +23,7 @@ class InfiniteSpotError extends InfiniteSpotState {
 }
 
 class InfiniteSpotLoaded extends InfiniteSpotState {
-  final List<Spot> spots;
+  final List<Spots> spots;
   final int totalCount;
 
   InfiniteSpotLoaded({required this.totalCount, required this.spots});

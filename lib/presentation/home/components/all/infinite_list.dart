@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:wit_app/data/models/spot.dart';
+import 'package:wit_app/data/models/spots.dart';
 import 'package:wit_app/presentation/home/bloc/infinite_spot_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/infinite_spot_state.dart';
 import 'package:wit_app/presentation/home/bloc/position_cubit.dart';
@@ -22,7 +22,7 @@ class InfiniteList extends StatefulWidget {
 
 class _InfiniteListState extends State<InfiniteList> {
   final scrollController = ScrollController();
-  List<Spot> showList = [];
+  List<Spots> showList = [];
 
   late InfiniteSpotCubit infiniteSpotCubit;
   late PositionCubit positionCubit;
@@ -143,7 +143,7 @@ class _InfiniteListState extends State<InfiniteList> {
             newDataLoaded = true;
           } else if (state is InfiniteSpotError) {
             return const Center(
-              child: Text('failed to fetch posts'),
+              child: Text('No datas'),
             );
           } else if (state is InfiniteSpotLoaded) {
             if (state.spots.isEmpty) {
@@ -178,7 +178,7 @@ class _InfiniteListState extends State<InfiniteList> {
               } else {
                 return Skeletonizer(
                   enabled: isLoading,
-                  child: InfiniteListItem(spot: filteredList[index]),
+                  child: InfiniteListItem(spots: filteredList[index]),
                 );
               }
             },

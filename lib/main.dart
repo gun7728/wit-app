@@ -7,7 +7,7 @@ import 'package:wit_app/data/respository/position/position_repository.dart';
 import 'package:wit_app/data/respository/spot/spot_repository.dart';
 import 'package:wit_app/presentation/home/bloc/infinite_spot_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/position_cubit.dart';
-import 'package:wit_app/presentation/home/bloc/spot_cubit.dart';
+import 'package:wit_app/presentation/home/bloc/spots_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/type_cubit.dart';
 import 'package:wit_app/presentation/home/pages/home.dart';
 import 'package:wit_app/presentation/map/pages/map_page.dart';
@@ -64,7 +64,7 @@ class _AppState extends State<App> {
       home: MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => SpotCubit(spotRepository: spotRepository),
+            create: (context) => SpotsCubit(spotRepository: spotRepository),
           ),
           BlocProvider(
             create: (context) =>

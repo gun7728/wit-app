@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wit_app/presentation/home/bloc/spot_cubit.dart';
-import 'package:wit_app/presentation/home/bloc/spot_state.dart';
+import 'package:wit_app/presentation/home/bloc/spots_cubit.dart';
+import 'package:wit_app/presentation/home/bloc/spots_state.dart';
 import 'package:wit_app/presentation/home/bloc/type_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/type_state.dart';
 import 'package:wit_app/common/types/category_type.dart';
@@ -29,11 +29,11 @@ class MainCategoryList extends StatelessWidget {
                     color: Colors.grey[100],
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: BlocBuilder<SpotCubit, SpotState>(
+                  child: BlocBuilder<SpotsCubit, SpotsState>(
                     builder: (context, spotState) {
                       return TextButton(
                         onPressed: () {
-                          if (spotState is SpotLoading) return;
+                          if (spotState is SpotsLoading) return;
                           if (state is TypeLoaded) {
                             context.read<TypeCubit>().setType(
                                 state.currentType == cateogryList[index]

@@ -23,10 +23,10 @@ class SpotError extends SpotState {
 }
 
 class SpotLoaded extends SpotState {
-  final List<Spot> spots;
+  final Spot? spot;
 
-  SpotLoaded({required this.spots});
+  SpotLoaded({required this.spot});
 
   @override
-  List<Object?> get props => [spots];
+  List<Object?> get props => [spot];
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:wit_app/presentation/home/components/preview/preview_list_item.dart';
-import 'package:wit_app/data/models/spot.dart';
+import 'package:wit_app/data/models/spots.dart';
 
 class PreviewList extends StatelessWidget {
-  final List<Spot> spots;
+  final List<Spots> spots;
   final bool isLoading;
   const PreviewList({super.key, required this.spots, required this.isLoading});
 
@@ -30,6 +30,7 @@ class PreviewList extends StatelessWidget {
                     tel: locationData.tel,
                     firstimage: locationData.firstimage,
                     contentid: locationData.contentid,
+                    contenttypeid: locationData.contenttypeid,
                     isLoading: isLoading,
                   ),
                   const SizedBox(
