@@ -20,8 +20,8 @@ class AllListTrigger extends StatelessWidget {
             child: Text(
               'Events',
               style: TextStyle(
-                fontWeight: FontWeight.w800,
-                fontSize: 22,
+                fontWeight: FontWeight.w200,
+                fontSize: 30,
                 color: Colors.black,
               ),
             ),

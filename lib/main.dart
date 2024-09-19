@@ -12,7 +12,6 @@ import 'package:wit_app/presentation/home/bloc/type_cubit.dart';
 import 'package:wit_app/presentation/home/pages/home.dart';
 import 'package:wit_app/presentation/map/pages/map_page.dart';
 import 'package:wit_app/presentation/my/my_page.dart';
-import 'package:wit_app/widget/default_bottom_nav.dart';
 import 'package:wit_app/widget/main_app_bar.dart';
 
 void main() async {
@@ -58,7 +57,8 @@ class _AppState extends State<App> {
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: const Color(0xFF106DF4),
           secondary: const Color(0xFFFFBF5D),
-          surface: const Color(0xFFECECEA),
+          surface: const Color.fromARGB(255, 249, 249, 249),
+          onSurfaceVariant: const Color.fromARGB(255, 241, 241, 241),
         ),
       ),
       home: MultiBlocProvider(
@@ -79,13 +79,13 @@ class _AppState extends State<App> {
           ),
         ],
         child: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: const Color.fromARGB(255, 249, 249, 249),
           appBar: _currentIndex != 2 ? const MainAppBar() : null,
           body: _pages[_currentIndex], // Display the selected page
-          bottomNavigationBar: DefaultBottomNav(
-            currentIndex: _currentIndex,
-            setCurrentIndex: setCurrentIndex,
-          ),
+          // bottomNavigationBar: DefaultBottomNav(
+          //   currentIndex: _currentIndex,
+          //   setCurrentIndex: setCurrentIndex,
+          // ),
         ),
       ),
     );

@@ -19,7 +19,7 @@ class _MainAppBarState extends State<MainAppBar> {
     return BlocBuilder<PositionCubit, PositionState>(
       builder: (context, PositionState state) {
         return AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           scrolledUnderElevation: 0,
           toolbarHeight: 80,
           centerTitle: false,

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -73,94 +75,139 @@ class PreviewListItem extends StatelessWidget {
             },
             child: Stack(
               children: [
+                // Blurred background
                 Container(
-                  alignment: Alignment.center,
-                  width: 220,
-                  height: 320,
-                  child: ClipRRect(
+                  width: 300,
+                  height: 380,
+                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25),
-                    child: firstimage != ''
-                        ? CachedNetworkImage(
-                            fit: BoxFit.fitHeight,
-                            height: MediaQuery.of(context).size.height,
-                            width: MediaQuery.of(context).size.width,
-                            imageUrl: firstimage,
-                            placeholder: (context, url) => const Center(
-                                child: CircularProgressIndicator()),
-                            errorWidget: (context, url, error) {
-                              return Image.asset(
-                                'assets/noImg.webp',
-                                height: MediaQuery.of(context).size.height,
-                                width: MediaQuery.of(context).size.width,
-                                fit: BoxFit.fitHeight,
-                              );
-                            },
+                    image: firstimage != ''
+                        ? DecorationImage(
+                            image: CachedNetworkImageProvider(firstimage),
+                            fit: BoxFit.cover,
                           )
-                        : Image.asset(
-                            'assets/noImg.webp',
-                            height: MediaQuery.of(context).size.height,
-                            width: MediaQuery.of(context).size.width,
-                            fit: BoxFit.fitHeight,
+                        : const DecorationImage(
+                            image: AssetImage('assets/noImg.webp'),
+                            fit: BoxFit.cover,
                           ),
                   ),
-                ),
-                if (!isLoading)
-                  Positioned(
-                    left: 5,
-                    bottom: 5,
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(
-                        maxWidth: 180,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(25),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                      child: Container(
+                        color: Colors.black.withOpacity(0.1),
                       ),
-                      child: IntrinsicWidth(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF4D5653),
-                            borderRadius: BorderRadius.circular(45),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              textAlign: TextAlign.center,
-                              overflow: TextOverflow.ellipsis,
-                              title,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15.0,
-                              ),
-                            ),
+                    ),
+                  ),
+                ),
+                // Edge-blurred main image
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(25),
+                  child: ShaderMask(
+                    shaderCallback: (Rect bounds) {
+                      return LinearGradient(
+                        begin: Alignment.center,
+                        end: Alignment.bottomCenter,
+                        colors: [Colors.white, Colors.white.withOpacity(0.0)],
+                        stops: const [0.9, 1.0],
+                      ).createShader(bounds);
+                    },
+                    blendMode: BlendMode.dstIn,
+                    child: ShaderMask(
+                      shaderCallback: (Rect bounds) {
+                        return LinearGradient(
+                          begin: Alignment.center,
+                          end: Alignment.topCenter,
+                          colors: [Colors.white, Colors.white.withOpacity(0.0)],
+                          stops: const [0.9, 1.0],
+                        ).createShader(bounds);
+                      },
+                      blendMode: BlendMode.dstIn,
+                      child: ShaderMask(
+                        shaderCallback: (Rect bounds) {
+                          return LinearGradient(
+                            begin: Alignment.center,
+                            end: Alignment.centerRight,
+                            colors: [
+                              Colors.white,
+                              Colors.white.withOpacity(0.0)
+                            ],
+                            stops: const [0.9, 1.0],
+                          ).createShader(bounds);
+                        },
+                        blendMode: BlendMode.dstIn,
+                        child: ShaderMask(
+                          shaderCallback: (Rect bounds) {
+                            return LinearGradient(
+                              begin: Alignment.center,
+                              end: Alignment.centerLeft,
+                              colors: [
+                                Colors.white,
+                                Colors.white.withOpacity(0.0)
+                              ],
+                              stops: const [0.9, 1.0],
+                            ).createShader(bounds);
+                          },
+                          blendMode: BlendMode.dstIn,
+                          child: SizedBox(
+                            width: 300,
+                            height: 380,
+                            child: firstimage != ''
+                                ? CachedNetworkImage(
+                                    fit: BoxFit.cover,
+                                    imageUrl: firstimage,
+                                    placeholder: (context, url) => const Center(
+                                        child: CircularProgressIndicator()),
+                                    errorWidget: (context, url, error) {
+                                      return Image.asset(
+                                        'assets/noImg.webp',
+                                        fit: BoxFit.cover,
+                                      );
+                                    },
+                                  )
+                                : Image.asset(
+                                    'assets/noImg.webp',
+                                    fit: BoxFit.cover,
+                                  ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                if (addr1 != '' && !isLoading)
+                ),
+                if (!isLoading)
                   Positioned(
-                    left: 5,
-                    bottom: 45,
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(
-                        maxWidth: 180,
-                      ),
-                      child: IntrinsicWidth(
+                    bottom: 20,
+                    left: 20,
+                    right: 20,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 40.0, sigmaY: 50.0),
                         child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF4D5653),
-                            borderRadius: BorderRadius.circular(45),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              textAlign: TextAlign.center,
-                              overflow: TextOverflow.ellipsis,
-                              addr1,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 10.0,
+                          padding: const EdgeInsets.all(16),
+                          color: Colors.white.withOpacity(0.1),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                title,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 22.0,
+                                ),
                               ),
-                            ),
+                              const SizedBox(height: 4),
+                              Text(
+                                addr1,
+                                style: const TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 14.0,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),

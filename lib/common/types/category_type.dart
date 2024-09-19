@@ -1,4 +1,6 @@
 // categoryType에 해당하는 Dart Map
+import 'package:flutter/material.dart';
+
 const Map<String, String> categoryString = {
   'A01': '자연',
   'A02': '인문(문화 / 예술 / 역사)',
@@ -8,16 +10,39 @@ const Map<String, String> categoryString = {
   'A04': '쇼핑',
   'A05': '음식',
 };
-
-const Map<int, String> categoryType = {
-  12: '관광지',
-  14: '문화시설',
-  15: '행사/공연/축제',
-  25: '여행코스',
-  28: '레포츠',
-  32: '숙박',
-  38: '쇼핑',
-  39: '음식점',
+const Map<int, Map<String, dynamic>> categoryTypeWithIcon = {
+  12: {
+    'name': '관광지',
+    'icon': Icons.landscape, // Icon for "tourist spot" or "scenery"
+  },
+  14: {
+    'name': '문화시설',
+    'icon': Icons.museum, // Icon for "cultural facility"
+  },
+  15: {
+    'name': '행사/공연/축제',
+    'icon': Icons.event, // Icon for "events/performances/festivals"
+  },
+  25: {
+    'name': '여행코스',
+    'icon': Icons.route, // Icon for "travel course" or "itinerary"
+  },
+  28: {
+    'name': '레포츠',
+    'icon': Icons.sports_soccer, // Icon for "leisure sports"
+  },
+  32: {
+    'name': '숙박',
+    'icon': Icons.hotel, // Icon for "accommodation"
+  },
+  38: {
+    'name': '쇼핑',
+    'icon': Icons.shopping_bag, // Icon for "shopping"
+  },
+  39: {
+    'name': '음식점',
+    'icon': Icons.restaurant, // Icon for "restaurant" or "food"
+  },
 };
 
 // categoryDetail에 해당하는 Dart Map
