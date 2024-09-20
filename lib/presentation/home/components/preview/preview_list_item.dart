@@ -187,7 +187,7 @@ class PreviewListItem extends StatelessWidget {
                         filter: ImageFilter.blur(sigmaX: 40.0, sigmaY: 50.0),
                         child: Container(
                           padding: const EdgeInsets.all(16),
-                          color: Colors.white.withOpacity(0.1),
+                          color: Colors.black.withOpacity(0.1),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -203,7 +203,7 @@ class PreviewListItem extends StatelessWidget {
                               Text(
                                 addr1,
                                 style: const TextStyle(
-                                  color: Colors.white70,
+                                  color: Colors.white,
                                   fontSize: 14.0,
                                 ),
                               ),

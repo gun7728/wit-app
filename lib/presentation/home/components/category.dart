@@ -40,6 +40,13 @@ class MainCategoryList extends StatelessWidget {
                         return Row(
                           children: [
                             TextButton(
+                              style: TextButton.styleFrom(
+                                  backgroundColor: Colors.white, // 배경색
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(5), // 테두리 둥글게
+                                  ),
+                                  overlayColor: Colors.black),
                               onPressed: () {
                                 if (spotState is SpotsLoading) return;
                                 if (state is TypeLoaded) {

@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:wit_app/data/models/position.dart' as custom_position;
@@ -7,6 +10,25 @@ class PositionRepository {
   final Dio _dio = Dio(); // Dio 인스턴스 생성
 
   Future<custom_position.Position?> getPostion() async {
+    if (kIsWeb) {
+      // 웹에서 위치를 가져오는 로직
+      return getWebPosition();
+    } else {
+      // 모바일에서 위치를 가져오는 로직
+      return getMobilePosition();
+    }
+  }
+
+  Future<custom_position.Position?> getWebPosition() async {
+    var getPosition = await GeolocatorPlatform.instance.getCurrentPosition();
+
+    return custom_position.Position(
+      longitude: getPosition.longitude,
+      latitude: getPosition.latitude,
+    );
+  }
+
+  Future<custom_position.Position?> getMobilePosition() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       return Future.error('Location services are disabled.');
@@ -19,6 +41,7 @@ class PositionRepository {
         return Future.error('Location permissions are denied.');
       }
     }
+
     var getPosition = await Geolocator.getCurrentPosition();
 
     // 가져온 위치 데이터를 custom_position.Position 객체로 변환하여 반환
