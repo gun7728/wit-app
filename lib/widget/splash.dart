@@ -93,7 +93,6 @@ class Splash extends StatelessWidget {
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 40.0, sigmaY: 50.0),
                 child: Container(
-                  height: 280,
                   padding: const EdgeInsets.all(16),
                   color: Colors.black.withOpacity(0.1),
                   child: Column(
@@ -104,7 +103,7 @@ class Splash extends StatelessWidget {
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
-                          fontSize: 29.5,
+                          fontSize: 28,
                         ),
                       ),
                       const SizedBox(
