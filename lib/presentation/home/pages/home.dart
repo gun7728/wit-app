@@ -83,13 +83,20 @@ class _HomeState extends State<Home> {
                     color: Theme.of(context).colorScheme.surface,
                     child: Column(
                       children: [
-                        const SizedBox(height: 20),
-                        const SearchInput(searchable: false),
-                        const SizedBox(height: 20),
-                        const MainCategoryList(),
-                        const SizedBox(height: 20),
-                        const AllListTrigger(),
-                        const SizedBox(height: 20),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 15),
+                          child: Column(
+                            children: [
+                              SizedBox(height: 20),
+                              SearchInput(searchable: false),
+                              SizedBox(height: 20),
+                              MainCategoryList(),
+                              SizedBox(height: 20),
+                              AllListTrigger(),
+                              SizedBox(height: 20),
+                            ],
+                          ),
+                        ),
                         BlocBuilder<SpotsCubit, SpotsState>(
                           builder: (context, state) {
                             if (state is SpotsLoading) {

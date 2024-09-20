@@ -15,81 +15,77 @@ class MainCategoryList extends StatelessWidget {
 
     return BlocBuilder<TypeCubit, TypeState>(
       builder: (context, TypeState state) {
-        return Padding(
-          padding: const EdgeInsets.only(left: 10),
-          child: SizedBox(
-            height: 40,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: cateogryList.length,
-              itemBuilder: (context, index) {
-                String? category =
-                    categoryTypeWithIcon[cateogryList[index]]!['name'];
-                IconData? categoryIcon =
-                    categoryTypeWithIcon[cateogryList[index]]!['icon'];
-                return Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: BlocBuilder<SpotsCubit, SpotsState>(
-                      builder: (context, spotState) {
-                        return Row(
-                          children: [
-                            TextButton(
-                              style: TextButton.styleFrom(
-                                  backgroundColor: Colors.white, // 배경색
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(5), // 테두리 둥글게
-                                  ),
-                                  overlayColor: Colors.black),
-                              onPressed: () {
-                                if (spotState is SpotsLoading) return;
-                                if (state is TypeLoaded) {
-                                  context.read<TypeCubit>().setType(
-                                      state.currentType == cateogryList[index]
-                                          ? 0
-                                          : cateogryList[index]);
-                                }
-                              },
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    categoryIcon,
+        return SizedBox(
+          height: 40,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: cateogryList.length,
+            itemBuilder: (context, index) {
+              String? category =
+                  categoryTypeWithIcon[cateogryList[index]]!['name'];
+              IconData? categoryIcon =
+                  categoryTypeWithIcon[cateogryList[index]]!['icon'];
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: BlocBuilder<SpotsCubit, SpotsState>(
+                    builder: (context, spotState) {
+                      return Row(
+                        children: [
+                          TextButton(
+                            style: TextButton.styleFrom(
+                                backgroundColor: Colors.white, // 배경색
+                                shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(5), // 테두리 둥글게
+                                ),
+                                overlayColor: Colors.black),
+                            onPressed: () {
+                              if (spotState is SpotsLoading) return;
+                              if (state is TypeLoaded) {
+                                context.read<TypeCubit>().setType(
+                                    state.currentType == cateogryList[index]
+                                        ? 0
+                                        : cateogryList[index]);
+                              }
+                            },
+                            child: Row(
+                              children: [
+                                Icon(
+                                  categoryIcon,
+                                  color: state is TypeLoaded &&
+                                          state.currentType ==
+                                              cateogryList[index]
+                                      ? Colors.black
+                                      : Colors.grey[400],
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  category!,
+                                  style: TextStyle(
                                     color: state is TypeLoaded &&
                                             state.currentType ==
                                                 cateogryList[index]
                                         ? Colors.black
                                         : Colors.grey[400],
                                   ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    category!,
-                                    style: TextStyle(
-                                      color: state is TypeLoaded &&
-                                              state.currentType ==
-                                                  cateogryList[index]
-                                          ? Colors.black
-                                          : Colors.grey[400],
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ],
-                        );
-                      },
-                    ),
+                          ),
+                        ],
+                      );
+                    },
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
         );
       },

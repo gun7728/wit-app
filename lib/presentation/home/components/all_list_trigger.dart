@@ -10,55 +10,52 @@ class AllListTrigger extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(
-            child: Text(
-              'Events',
-              style: TextStyle(
-                fontWeight: FontWeight.w200,
-                fontSize: 30,
-                color: Colors.black,
-              ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const SizedBox(
+          child: Text(
+            'Events',
+            style: TextStyle(
+              fontWeight: FontWeight.w200,
+              fontSize: 30,
+              color: Colors.black,
             ),
           ),
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (contextLoginScreen) {
-                  return MultiBlocProvider(
-                    providers: [
-                      BlocProvider.value(
-                        value: BlocProvider.of<TypeCubit>(context),
-                      ),
-                      BlocProvider.value(
-                        value: BlocProvider.of<PositionCubit>(context),
-                      ),
-                      BlocProvider.value(
-                        value: BlocProvider.of<InfiniteSpotCubit>(context),
-                      )
-                    ],
-                    child: const InfiniteList(),
-                  );
-                }),
-              );
-            },
-            child: Text(
-              'View all',
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 15,
-                color: Theme.of(context).colorScheme.primary,
-              ),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (contextLoginScreen) {
+                return MultiBlocProvider(
+                  providers: [
+                    BlocProvider.value(
+                      value: BlocProvider.of<TypeCubit>(context),
+                    ),
+                    BlocProvider.value(
+                      value: BlocProvider.of<PositionCubit>(context),
+                    ),
+                    BlocProvider.value(
+                      value: BlocProvider.of<InfiniteSpotCubit>(context),
+                    )
+                  ],
+                  child: const InfiniteList(),
+                );
+              }),
+            );
+          },
+          child: Text(
+            'View all',
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 15,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

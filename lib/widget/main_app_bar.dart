@@ -29,15 +29,12 @@ class _MainAppBarState extends State<MainAppBar> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.only(left: 1.5),
-                    child: Text(
-                      'Explore',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w200,
-                      ),
+                  const Text(
+                    'Trip to',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w200,
                     ),
                   ),
                   TextButton.icon(
@@ -53,8 +50,8 @@ class _MainAppBarState extends State<MainAppBar> {
                       state is PositionLoaded
                           ? (state.positionKor != null
                               ? '${state.positionKor}'
-                              : 'Current Location')
-                          : 'Current Location',
+                              : 'Get Location')
+                          : 'Get Location',
                       style: const TextStyle(
                         color: Colors.black,
                       ),
@@ -64,21 +61,18 @@ class _MainAppBarState extends State<MainAppBar> {
               ),
               const Row(
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 0),
-                    child: Text(
-                      'Korea',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        height: 0.7,
-                        fontSize: 40,
-                      ),
+                  Text(
+                    'Seoul',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      height: 0.7,
+                      fontSize: 40,
                     ),
                   ),
                 ],
               ),
               const SizedBox(
-                height: 20,
+                height: 10,
               )
             ],
           ),

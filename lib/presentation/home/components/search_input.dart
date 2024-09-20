@@ -16,53 +16,50 @@ class SearchInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: SizedBox(
-        height: 50,
-        child: TextField(
-          enableInteractiveSelection: searchable,
-          focusNode: searchable ? null : AlwaysDisabledFocusNode(),
-          onTap: () {
-            if (searchable) {
-            } else {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (contextLoginScreen) {
-                  return MultiBlocProvider(
-                    providers: [
-                      BlocProvider.value(
-                        value: BlocProvider.of<TypeCubit>(context),
-                      ),
-                      BlocProvider.value(
-                        value: BlocProvider.of<PositionCubit>(context),
-                      ),
-                      BlocProvider.value(
-                        value: BlocProvider.of<SpotsCubit>(context),
-                      )
-                    ],
-                    child: const SearchList(),
-                  );
-                }),
-              );
-            }
-          },
-          decoration: InputDecoration(
-            hintText: 'Find things to do',
-            hintStyle: TextStyle(color: Colors.grey[400]),
-            filled: true,
-            fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide.none,
-            ),
-            prefixIcon: Icon(
-              Icons.search,
-              color: Colors.grey[400],
-              size: 35,
-            ),
-            contentPadding: const EdgeInsets.symmetric(vertical: 15),
+    return SizedBox(
+      height: 50,
+      child: TextField(
+        enableInteractiveSelection: searchable,
+        focusNode: searchable ? null : AlwaysDisabledFocusNode(),
+        onTap: () {
+          if (searchable) {
+          } else {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (contextLoginScreen) {
+                return MultiBlocProvider(
+                  providers: [
+                    BlocProvider.value(
+                      value: BlocProvider.of<TypeCubit>(context),
+                    ),
+                    BlocProvider.value(
+                      value: BlocProvider.of<PositionCubit>(context),
+                    ),
+                    BlocProvider.value(
+                      value: BlocProvider.of<SpotsCubit>(context),
+                    )
+                  ],
+                  child: const SearchList(),
+                );
+              }),
+            );
+          }
+        },
+        decoration: InputDecoration(
+          hintText: 'Find things to do',
+          hintStyle: TextStyle(color: Colors.grey[400]),
+          filled: true,
+          fillColor: Theme.of(context).colorScheme.onSurfaceVariant,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide.none,
           ),
+          prefixIcon: Icon(
+            Icons.search,
+            color: Colors.grey[400],
+            size: 35,
+          ),
+          contentPadding: const EdgeInsets.symmetric(vertical: 15),
         ),
       ),
     );

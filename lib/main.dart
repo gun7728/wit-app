@@ -13,6 +13,7 @@ import 'package:wit_app/presentation/home/pages/home.dart';
 import 'package:wit_app/presentation/map/pages/map_page.dart';
 import 'package:wit_app/presentation/my/my_page.dart';
 import 'package:wit_app/widget/main_app_bar.dart';
+import 'package:wit_app/widget/splash.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,13 +30,8 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   int _currentIndex = 0;
+  bool isLoading = true;
   String currentLocation = '현위치';
-
-  final List<Widget> _pages = [
-    const Home(),
-    const MyPage(),
-    const MapPage(),
-  ];
 
   setCurrentIndex(index) {
     setState(() {
@@ -47,6 +43,13 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     final spotRepository = SpotRepository();
     final positionRepository = PositionRepository();
+
+    final List<Widget> pages = [
+      Splash(setCurrentIndex: setCurrentIndex),
+      const Home(),
+      const MyPage(),
+      const MapPage(),
+    ];
 
     return MaterialApp(
       scrollBehavior: MyCustomScrollBehavior(),
@@ -80,8 +83,8 @@ class _AppState extends State<App> {
         ],
         child: Scaffold(
           backgroundColor: const Color.fromARGB(255, 249, 249, 249),
-          appBar: _currentIndex != 2 ? const MainAppBar() : null,
-          body: _pages[_currentIndex], // Display the selected page
+          appBar: _currentIndex != 0 ? const MainAppBar() : null,
+          body: pages[_currentIndex], // Display the selected page
           // bottomNavigationBar: DefaultBottomNav(
           //   currentIndex: _currentIndex,
           //   setCurrentIndex: setCurrentIndex,
