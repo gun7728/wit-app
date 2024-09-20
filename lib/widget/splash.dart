@@ -12,7 +12,7 @@ class Splash extends StatelessWidget {
       width: double.infinity,
       decoration: const BoxDecoration(
         image: DecorationImage(
-          fit: BoxFit.cover,
+          fit: BoxFit.fill,
           image: AssetImage('assets/splash.png'), // 배경 이미지
         ),
       ),
