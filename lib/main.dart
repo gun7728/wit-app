@@ -1,10 +1,12 @@
 import 'dart:ui';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:wit_app/data/respository/position/position_repository.dart';
 import 'package:wit_app/data/respository/spot/spot_repository.dart';
+import 'package:wit_app/firebase_options.dart';
 import 'package:wit_app/presentation/home/bloc/infinite_spot_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/position_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/spots_cubit.dart';
@@ -13,10 +15,13 @@ import 'package:wit_app/presentation/home/pages/home.dart';
 import 'package:wit_app/presentation/map/pages/map_page.dart';
 import 'package:wit_app/presentation/my/my_page.dart';
 import 'package:wit_app/widget/main_app_bar.dart';
-import 'package:wit_app/widget/splash.dart';
+import 'package:wit_app/presentation/login/splash.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await dotenv.load(fileName: '.env');
   runApp(const App());
 }
