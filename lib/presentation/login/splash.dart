@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:wit_app/data/models/position.dart';
 
 class Splash extends StatefulWidget {
   final Function(int) setCurrentIndex;
@@ -13,6 +12,9 @@ class Splash extends StatefulWidget {
 
 class _SplashState extends State<Splash> {
   bool isSignUp = false;
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final passwordConfirmationController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,80 @@ class _SplashState extends State<Splash> {
                     child: BackdropFilter(
                       filter: ImageFilter.blur(sigmaX: 40.0, sigmaY: 50.0),
                       child: Container(
-                        padding: const EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(20),
+                        child: const Column(
+                          children: [
+                            SizedBox(
+                              height: 100,
+                              child: Center(
+                                child: Text(
+                                  'Sign Up',
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    height: 1,
+                                    color: Colors.white,
+                                    fontSize: 60,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 80,
+                            ),
+                            TextField(
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'Email',
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            TextField(
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'Password',
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            TextField(
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'Confirm Password',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: SizedBox(
+                    height: 200,
+                    child: Center(
+                      child: TextButton(
+                        onPressed: () {
+                          setState(() {
+                            isSignUp = true;
+                          });
+                        },
+                        child: const Text(
+                          'Back',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -159,12 +234,10 @@ class _SplashState extends State<Splash> {
                                     width: double.infinity,
                                     child: TextButton(
                                       onPressed: () {
-                                        setState(() {
-                                          isSignUp = true;
-                                        });
+                                        widget.setCurrentIndex(0);
                                       },
                                       child: const Text(
-                                        'Sign up',
+                                        'Start',
                                         style: TextStyle(
                                           fontSize: 18,
                                           color: Colors.white,
@@ -176,60 +249,60 @@ class _SplashState extends State<Splash> {
                                   const SizedBox(
                                     height: 5,
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Flexible(
-                                        flex: 2,
-                                        child: Center(
-                                          child: SizedBox(
-                                            width: double.infinity,
-                                            height: 50,
-                                            child: TextButton(
-                                              onPressed: () {},
-                                              child: const Text(
-                                                'Log in',
-                                                style: TextStyle(
-                                                  fontSize: 18,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w800,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Container(
-                                        width: 1,
-                                        height: 40,
-                                        decoration: const BoxDecoration(
-                                            color: Colors.white),
-                                      ),
-                                      Flexible(
-                                        flex: 2,
-                                        child: Center(
-                                          child: SizedBox(
-                                            height: 50,
-                                            width: double.infinity,
-                                            child: TextButton(
-                                              onPressed: () {
-                                                widget.setCurrentIndex(1);
-                                              },
-                                              child: const Text(
-                                                'Continue as guest',
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  // Row(
+                                  //   mainAxisAlignment:
+                                  //       MainAxisAlignment.spaceBetween,
+                                  //   children: [
+                                  //     Flexible(
+                                  //       flex: 2,
+                                  //       child: Center(
+                                  //         child: SizedBox(
+                                  //           width: double.infinity,
+                                  //           height: 50,
+                                  //           child: TextButton(
+                                  //             onPressed: () {},
+                                  //             child: const Text(
+                                  //               'Log in',
+                                  //               style: TextStyle(
+                                  //                 fontSize: 18,
+                                  //                 color: Colors.white,
+                                  //                 fontWeight: FontWeight.w800,
+                                  //               ),
+                                  //             ),
+                                  //           ),
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //     Container(
+                                  //       width: 1,
+                                  //       height: 40,
+                                  //       decoration: const BoxDecoration(
+                                  //           color: Colors.white),
+                                  //     ),
+                                  //     Flexible(
+                                  //       flex: 2,
+                                  //       child: Center(
+                                  //         child: SizedBox(
+                                  //           height: 50,
+                                  //           width: double.infinity,
+                                  //           child: TextButton(
+                                  //             onPressed: () {
+                                  //               widget.setCurrentIndex(1);
+                                  //             },
+                                  //             child: const Text(
+                                  //               'Continue as guest',
+                                  //               style: TextStyle(
+                                  //                 fontSize: 16,
+                                  //                 color: Colors.white,
+                                  //                 fontWeight: FontWeight.w400,
+                                  //               ),
+                                  //             ),
+                                  //           ),
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // ),
                                 ],
                               ),
                             ),

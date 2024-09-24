@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:wit_app/data/models/spots.dart';
-import 'package:wit_app/presentation/home/components/all_list_trigger.dart';
 import 'package:wit_app/presentation/home/bloc/position_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/position_state.dart';
 import 'package:wit_app/presentation/home/bloc/spots_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/spots_state.dart';
-import 'package:wit_app/presentation/home/components/category.dart';
-import 'package:wit_app/presentation/home/components/preview/preview_list.dart';
-import 'package:wit_app/presentation/home/components/search_input.dart';
 import 'package:wit_app/presentation/home/bloc/type_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/type_state.dart';
+import 'package:wit_app/presentation/home/components/all_list_trigger.dart';
+import 'package:wit_app/presentation/home/components/category.dart';
+import 'package:wit_app/presentation/home/components/preview/preview_list.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -87,8 +86,7 @@ class _HomeState extends State<Home> {
                           padding: EdgeInsets.symmetric(horizontal: 15),
                           child: Column(
                             children: [
-                              SizedBox(height: 20),
-                              SearchInput(searchable: false),
+                              // SearchInput(searchable: false),
                               SizedBox(height: 20),
                               MainCategoryList(),
                               SizedBox(height: 20),
@@ -129,14 +127,14 @@ class _HomeState extends State<Home> {
             },
           ),
         ),
-        Positioned(
-            left: 20,
-            bottom: 50,
-            child: Container(
-              width: 20,
-              height: 20,
-              color: Colors.black,
-            ))
+        // Positioned(
+        //     left: 20,
+        //     bottom: 50,
+        //     child: Container(
+        //       width: 20,
+        //       height: 20,
+        //       color: Colors.black,
+        //     ))
       ],
     );
   }

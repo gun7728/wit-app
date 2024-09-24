@@ -11,11 +11,12 @@ import 'package:wit_app/presentation/home/bloc/infinite_spot_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/position_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/spots_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/type_cubit.dart';
+import 'package:wit_app/presentation/home/components/search/search_list.dart';
 import 'package:wit_app/presentation/home/pages/home.dart';
-import 'package:wit_app/presentation/map/pages/map_page.dart';
-import 'package:wit_app/presentation/my/my_page.dart';
-import 'package:wit_app/widget/main_app_bar.dart';
 import 'package:wit_app/presentation/login/splash.dart';
+import 'package:wit_app/presentation/map/pages/map_page.dart';
+import 'package:wit_app/widget/default_bottom_nav.dart';
+import 'package:wit_app/widget/main_app_bar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +35,7 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  int _currentIndex = 0;
+  int _currentIndex = -1;
   bool isLoading = true;
   String currentLocation = '현위치';
 
@@ -50,11 +51,14 @@ class _AppState extends State<App> {
     final positionRepository = PositionRepository();
 
     final List<Widget> pages = [
-      Splash(setCurrentIndex: setCurrentIndex),
       const Home(),
-      const MyPage(),
+      const SearchList(),
       const MapPage(),
     ];
+
+    MainAppBar appBarCall(currentIndex) {
+      return const MainAppBar();
+    }
 
     return MaterialApp(
       scrollBehavior: MyCustomScrollBehavior(),
@@ -88,12 +92,16 @@ class _AppState extends State<App> {
         ],
         child: Scaffold(
           backgroundColor: const Color.fromARGB(255, 249, 249, 249),
-          appBar: _currentIndex != 0 ? const MainAppBar() : null,
-          body: pages[_currentIndex], // Display the selected page
-          // bottomNavigationBar: DefaultBottomNav(
-          //   currentIndex: _currentIndex,
-          //   setCurrentIndex: setCurrentIndex,
-          // ),
+          appBar: appBarCall(_currentIndex),
+          body: _currentIndex == -1
+              ? Splash(setCurrentIndex: setCurrentIndex)
+              : pages[_currentIndex], // Display the selected page
+          bottomNavigationBar: _currentIndex >= 0
+              ? DefaultBottomNav(
+                  currentIndex: _currentIndex,
+                  setCurrentIndex: setCurrentIndex,
+                )
+              : null,
         ),
       ),
     );

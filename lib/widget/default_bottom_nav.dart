@@ -22,8 +22,8 @@ class DefaultBottomNav extends StatelessWidget {
             label: 'home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'like',
+            icon: Icon(Icons.search),
+            label: 'search',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.map),

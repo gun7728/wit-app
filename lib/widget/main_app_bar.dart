@@ -21,7 +21,7 @@ class _MainAppBarState extends State<MainAppBar> {
         return AppBar(
           backgroundColor: Theme.of(context).colorScheme.surface,
           scrolledUnderElevation: 0,
-          toolbarHeight: 80,
+          toolbarHeight: 70,
           centerTitle: false,
           title: Column(
             children: [
