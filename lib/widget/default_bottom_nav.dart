@@ -11,7 +11,8 @@ class DefaultBottomNav extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
+        elevation: 0,
+        backgroundColor: const Color.fromARGB(255, 249, 249, 249),
         showSelectedLabels: false,
         showUnselectedLabels: false,
         onTap: (index) => setCurrentIndex(index),
@@ -29,10 +30,10 @@ class DefaultBottomNav extends StatelessWidget {
             icon: Icon(Icons.map),
             label: 'map',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_rounded),
-            label: 'mypage',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.account_circle_rounded),
+          //   label: 'mypage',
+          // ),
         ]);
   }
 }

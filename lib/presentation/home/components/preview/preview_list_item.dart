@@ -15,7 +15,6 @@ class PreviewListItem extends StatelessWidget {
   final String firstimage;
   final String contentid;
   final String contenttypeid;
-  final bool isLoading;
 
   const PreviewListItem({
     super.key,
@@ -25,7 +24,6 @@ class PreviewListItem extends StatelessWidget {
     required this.firstimage,
     required this.contentid,
     required this.contenttypeid,
-    required this.isLoading,
   });
 
   @override
@@ -176,43 +174,42 @@ class PreviewListItem extends StatelessWidget {
                     ),
                   ),
                 ),
-                if (!isLoading)
-                  Positioned(
-                    bottom: 20,
-                    left: 20,
-                    right: 20,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 40.0, sigmaY: 50.0),
-                        child: Container(
-                          padding: const EdgeInsets.all(16),
-                          color: Colors.black.withOpacity(0.1),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                title,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 22.0,
-                                ),
+                Positioned(
+                  bottom: 20,
+                  left: 20,
+                  right: 20,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 40.0, sigmaY: 50.0),
+                      child: Container(
+                        padding: const EdgeInsets.all(16),
+                        color: Colors.black.withOpacity(0.1),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              title,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 22.0,
                               ),
-                              const SizedBox(height: 4),
-                              Text(
-                                addr1,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14.0,
-                                ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              addr1,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.0,
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
+                ),
               ],
             ),
           ),

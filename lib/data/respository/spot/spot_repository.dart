@@ -51,6 +51,43 @@ class SpotRepository {
     }
   }
 
+  Future<List<Spots>> getAllSpotList(option) async {
+    final locationBasedListUrl =
+        'areaBasedList1?serviceKey=$publicKey&numOfRows=1000&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=$option&contentTypeId=12&areaCode=1';
+
+    final String url = '$baseUrl/$locationBasedListUrl';
+
+    print(url);
+    try {
+      final response = await _dio.get(url.toString());
+
+      if (response.statusCode == 200) {
+        final responseBody = response.data;
+
+        if (responseBody['response']['body']['totalCount'] == 0) {
+          return [];
+        }
+
+        // 응답 구조에 따라 데이터 추출
+        final items = responseBody['response']['body']['items']['item'];
+
+        if (items is List) {
+          // List<Location>로 변환
+          return items
+              .map((item) => Spots.fromJson(item as Map<String, dynamic>))
+              .toList();
+        } else {
+          throw Exception('Expected a List of items');
+        }
+      } else {
+        throw Exception('Failed to load locations');
+      }
+    } catch (e) {
+      print('Error: $e');
+      throw Exception('Error fetching locations');
+    }
+  }
+
   Future<Spot?> getSpotDetail({contentId, type}) async {
     var typeString = type == 0 ? '' : '&contentTypeId=$type';
     final detailUrl =

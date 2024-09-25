@@ -1,28 +1,23 @@
 import 'dart:ui';
 
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:wit_app/data/respository/position/position_repository.dart';
 import 'package:wit_app/data/respository/spot/spot_repository.dart';
-import 'package:wit_app/firebase_options.dart';
 import 'package:wit_app/presentation/home/bloc/infinite_spot_cubit.dart';
+import 'package:wit_app/presentation/home/bloc/option_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/position_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/spots_cubit.dart';
-import 'package:wit_app/presentation/home/bloc/type_cubit.dart';
 import 'package:wit_app/presentation/home/components/search/search_list.dart';
 import 'package:wit_app/presentation/home/pages/home.dart';
-import 'package:wit_app/presentation/login/splash.dart';
 import 'package:wit_app/presentation/map/pages/map_page.dart';
 import 'package:wit_app/widget/default_bottom_nav.dart';
 import 'package:wit_app/widget/main_app_bar.dart';
+import 'package:wit_app/widget/splash.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
   await dotenv.load(fileName: '.env');
   runApp(const App());
 }
@@ -56,8 +51,12 @@ class _AppState extends State<App> {
       const MapPage(),
     ];
 
-    MainAppBar appBarCall(currentIndex) {
-      return const MainAppBar();
+    dynamic appBarCall(currentIndex) {
+      if (currentIndex >= 0) {
+        return const MainAppBar();
+      } else {
+        return null;
+      }
     }
 
     return MaterialApp(
@@ -67,7 +66,7 @@ class _AppState extends State<App> {
         // Define your custom colors here
         // You can also define these colors in the colorScheme
         colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: const Color(0xFF106DF4),
+          primary: const Color.fromARGB(200, 0, 0, 0),
           secondary: const Color(0xFFFFBF5D),
           surface: const Color.fromARGB(255, 249, 249, 249),
           onSurfaceVariant: const Color.fromARGB(255, 241, 241, 241),
@@ -83,7 +82,7 @@ class _AppState extends State<App> {
                 PositionCubit(positionRepository: positionRepository),
           ),
           BlocProvider(
-            create: (context) => TypeCubit(),
+            create: (context) => OptionCubit(),
           ),
           BlocProvider(
             create: (context) =>

@@ -25,4 +25,18 @@ class SpotsCubit extends Cubit<SpotsState> {
       emit(SpotsError(message: "Failed to load locations: $error"));
     }
   }
+
+  void getAllSpots({String option = 'R'}) async {
+    emit(SpotsLoading());
+    try {
+      // locationRepository에서 위치 데이터를 가져옴
+      final spots = await spotRepository.getAllSpotList(option);
+
+      // 데이터를 성공적으로 가져왔을 때의 상태
+      emit(SpotsLoaded(spots: spots)); // locations 데이터 전달
+    } catch (error) {
+      // 에러가 발생했을 때의 상태
+      emit(SpotsError(message: "Failed to load locations: $error"));
+    }
+  }
 }
