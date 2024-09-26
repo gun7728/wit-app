@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wit_app/data/models/spots.dart';
+import 'package:wit_app/presentation/home/bloc/option_cubit.dart';
+import 'package:wit_app/presentation/home/bloc/option_state.dart';
 import 'package:wit_app/presentation/home/bloc/spots_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/spots_state.dart';
 import 'package:wit_app/presentation/home/components/all_list_trigger.dart';
@@ -14,39 +17,55 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List<Spots> spotList = [];
+
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Theme.of(context).colorScheme.surface,
       child: Column(
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            child: Column(
-              children: [
-                // SearchInput(searchable: false),
-                SizedBox(height: 20),
-                ListOptions(),
-                SizedBox(height: 20),
-                AllListTrigger(),
-                SizedBox(height: 20),
-              ],
-            ),
+          const Column(
+            children: [
+              SizedBox(height: 20),
+              ListOptions(),
+              SizedBox(height: 20),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: AllListTrigger(),
+              ),
+              SizedBox(height: 20),
+            ],
           ),
           BlocBuilder<SpotsCubit, SpotsState>(
-            builder: (context, state) {
+            builder: (context, SpotsState state) {
               if (state is SpotsLoaded) {
-                return state.spots.isEmpty
+                spotList = state.spots;
+              }
+
+              return BlocBuilder<OptionCubit, OptionState>(
+                  builder: (context, OptionState state) {
+                if (state is OptionLoaded) {
+                  if (state.currentOption == 'R') {
+                    spotList
+                        .sort((a, b) => a.createdtime.compareTo(b.createdtime));
+                  }
+                  if (state.currentOption == 'O') {
+                    spotList.sort((a, b) => a.title.compareTo(b.title));
+                  }
+                  if (state.currentOption == 'Q') {
+                    spotList.sort((a, b) => a.title.compareTo(b.modifiedtime));
+                  }
+                }
+                return spotList.isEmpty
                     ? const SizedBox(
                         height: 200,
                         child: Center(
                           child: Text('No Datas'),
                         ),
                       )
-                    : PreviewList(spots: state.spots.sublist(0, 5));
-              }
-
-              return const SizedBox.shrink();
+                    : PreviewList(spots: spotList.sublist(0, 5));
+              });
             },
           ),
         ],

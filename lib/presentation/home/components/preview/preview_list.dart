@@ -21,7 +21,7 @@ class PreviewList extends StatelessWidget {
               return Row(
                 children: [
                   const SizedBox(
-                    width: 10,
+                    width: 20,
                   ),
                   PreviewListItem(
                     title: locationData.title,

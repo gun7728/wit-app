@@ -52,7 +52,7 @@ class _AppState extends State<App> {
     ];
 
     dynamic appBarCall(currentIndex) {
-      if (currentIndex >= 0) {
+      if (currentIndex == 0) {
         return const MainAppBar();
       } else {
         return null;

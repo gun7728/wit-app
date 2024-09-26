@@ -18,63 +18,66 @@ class _MainAppBarState extends State<MainAppBar> {
   Widget build(BuildContext context) {
     return BlocBuilder<PositionCubit, PositionState>(
       builder: (context, PositionState state) {
-        return AppBar(
-          backgroundColor: Theme.of(context).colorScheme.surface,
-          scrolledUnderElevation: 0,
-          toolbarHeight: 70,
-          centerTitle: false,
-          title: Column(
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Trip to',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w200,
-                    ),
-                  ),
-                  TextButton.icon(
-                    onPressed: () {
-                      context.read<PositionCubit>().getPosition();
-                    },
-                    icon: const Icon(
-                      Icons.my_location,
-                      size: 15,
-                      color: Color(0xff106df4),
-                    ),
-                    label: Text(
-                      state is PositionLoaded
-                          ? (state.positionKor != null
-                              ? '${state.positionKor}'
-                              : 'Get Location')
-                          : 'Get Location',
-                      style: const TextStyle(
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: AppBar(
+            backgroundColor: Theme.of(context).colorScheme.surface,
+            scrolledUnderElevation: 0,
+            toolbarHeight: 70,
+            centerTitle: false,
+            title: Column(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Trip to',
+                      style: TextStyle(
                         color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w200,
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const Row(
-                children: [
-                  Text(
-                    'Seoul',
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      height: 0.7,
-                      fontSize: 40,
+                    TextButton.icon(
+                      onPressed: () {
+                        context.read<PositionCubit>().getPosition();
+                      },
+                      icon: const Icon(
+                        Icons.my_location,
+                        size: 15,
+                        color: Color(0xff106df4),
+                      ),
+                      label: Text(
+                        state is PositionLoaded
+                            ? (state.positionKor != null
+                                ? '${state.positionKor}'
+                                : 'Get Location')
+                            : 'Get Location',
+                        style: const TextStyle(
+                          color: Colors.black,
+                        ),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              )
-            ],
+                  ],
+                ),
+                const Row(
+                  children: [
+                    Text(
+                      'Seoul',
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        height: 0.7,
+                        fontSize: 40,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                )
+              ],
+            ),
           ),
         );
       },
