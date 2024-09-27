@@ -1,0 +1,122 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:wit_app/data/models/spots.dart';
+
+class SearchListItem extends StatelessWidget {
+  final Function(int)? setCurrentIndex;
+  final Spots spot;
+  const SearchListItem({super.key, required this.spot, this.setCurrentIndex});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: SizedBox(
+        height: 370,
+        width: double.infinity,
+        child: Center(
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  SizedBox(
+                    height: 300,
+                    width: double.infinity,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: CachedNetworkImage(
+                        fit: BoxFit.cover,
+                        imageUrl: spot.firstimage,
+                        placeholder: (context, url) =>
+                            const Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) {
+                          return Image.asset(
+                            'assets/noImg.webp',
+                            fit: BoxFit.cover,
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 30,
+                          width: double.infinity,
+                          child: Text(
+                            textAlign: TextAlign.start,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                            ),
+                            spot.title,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          children: [
+                            const SizedBox(
+                              height: 20,
+                              child: Icon(
+                                Icons.location_on_sharp,
+                                color: Colors.black45,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                              child: Text(
+                                textAlign: TextAlign.start,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black45,
+                                ),
+                                spot.addr1,
+                              ),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Positioned(
+                top: 10,
+                right: 10,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: IconButton(
+                    onPressed: () {
+                      print(spot);
+                      setCurrentIndex!(2);
+                      // Example of passing someObject to MapPage
+                      // Navigator.push(
+                      //   context,
+                      //   setCurrentIndex(1),
+                      // );
+                    },
+                    icon: const Icon(
+                      Icons.map_outlined,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

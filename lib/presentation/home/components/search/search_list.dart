@@ -5,9 +5,11 @@ import 'package:wit_app/presentation/home/bloc/option_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/option_state.dart';
 import 'package:wit_app/presentation/home/bloc/spots_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/spots_state.dart';
+import 'package:wit_app/presentation/home/components/search/search_list_item.dart';
 
 class SearchList extends StatefulWidget {
-  const SearchList({super.key});
+  final Function(int)? setCurrentIndex;
+  const SearchList({super.key, this.setCurrentIndex});
 
   @override
   _SearchListState createState() => _SearchListState();
@@ -28,8 +30,6 @@ class _SearchListState extends State<SearchList> {
     _searchController.addListener(() {
       setState(() {
         _searchQuery = _searchController.text;
-        _currentMax = 10; // Reset pagination when searching
-        _loadMore(); // Refresh the displayed spots
       });
     });
 
@@ -68,7 +68,7 @@ class _SearchListState extends State<SearchList> {
     return Scaffold(
       appBar: AppBar(
         scrolledUnderElevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         title: Row(
           children: [
             Expanded(
@@ -77,38 +77,46 @@ class _SearchListState extends State<SearchList> {
                   borderRadius: BorderRadius.circular(15),
                   color: Colors.grey[200],
                 ),
-                height: 50,
+                height: 45,
                 child: TextFormField(
                   controller: _searchController,
                   decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.all(8.0),
-                    border: const OutlineInputBorder(),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: const BorderSide(
-                        color: Colors.black,
+                      contentPadding: const EdgeInsets.all(8.0),
+                      border: const OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Colors.black,
+                        ),
                       ),
-                    ),
-                    prefixIcon: const Icon(
-                      Icons.search,
-                      color: Colors.black38,
-                    ),
-                    hintText: 'Search...',
-                  ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.surface,
+                        ),
+                      ),
+                      prefixIcon: const Icon(
+                        Icons.search,
+                        color: Colors.black38,
+                      ),
+                      hintText: 'Search',
+                      hintStyle: const TextStyle(
+                        color: Colors.black38,
+                      )),
                 ),
               ),
             ),
-            const SizedBox(
-              width: 10,
-            ),
-            SizedBox(
-              width: 40,
-              height: 40,
-              child: IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.tune),
-              ),
-            ),
+            // const SizedBox(
+            //   width: 10,
+            // ),
+            // SizedBox(
+            //   width: 40,
+            //   height: 40,
+            //   child: IconButton(
+            //     onPressed: () {},
+            //     icon: const Icon(Icons.tune),
+            //   ),
+            // ),
           ],
         ),
       ),
@@ -155,11 +163,9 @@ class _SearchListState extends State<SearchList> {
                         controller: _scrollController,
                         itemCount: _displayedSpots.length,
                         itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text(_displayedSpots[index].title),
-                            subtitle: Text(
-                                _displayedSpots[index].tel ?? 'No contact'),
-                          );
+                          return SearchListItem(
+                              spot: _displayedSpots[index],
+                              setCurrentIndex: widget.setCurrentIndex);
                         },
                       ),
               ),

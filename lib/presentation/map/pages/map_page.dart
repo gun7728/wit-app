@@ -1,35 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:kakao_map_plugin/kakao_map_plugin.dart';
+import 'package:wit_app/data/models/spots.dart';
 import 'package:wit_app/presentation/home/bloc/position_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/position_state.dart';
 import 'package:wit_app/data/models/position.dart';
 
 class MapPage extends StatefulWidget {
-  const MapPage({super.key});
+  final Spots? spot;
+  const MapPage({super.key, this.spot});
 
   @override
   State<MapPage> createState() => _MapPageState();
 }
 
 class _MapPageState extends State<MapPage> {
-  late MapController mapController;
+  late KakaoMapController mapController;
+  Set<Marker> markers = {}; // 마커 변수
 
   @override
   void initState() {
     super.initState();
-    mapController = MapController();
   }
 
   getCurrentLocation(position) async {
-    // Position position = await LocationService().getCurrentPosition();
-    setState(() {
-      mapController.move(
-        LatLng(position.latitude, position.longitude),
-        15.0,
-      );
-    });
+    context.read<PositionCubit>().getPosition();
   }
 
   @override
@@ -37,7 +32,8 @@ class _MapPageState extends State<MapPage> {
     return BlocConsumer<PositionCubit, PositionState>(
       listener: (context, state) {
         if (state is PositionLoaded) {
-          getCurrentLocation(state.position);
+          mapController.setCenter(
+              LatLng(state.position.latitude, state.position.longitude));
         }
       },
       builder: (context, state) {
@@ -47,35 +43,19 @@ class _MapPageState extends State<MapPage> {
         return Stack(
           alignment: Alignment.bottomRight,
           children: [
-            FlutterMap(
-              mapController: mapController,
-              options: MapOptions(
-                initialCenter: LatLng(
-                  currentPositon.latitude,
-                  currentPositon.longitude,
-                ),
-                initialZoom: 13.0,
-              ),
-              children: [
-                TileLayer(
-                  urlTemplate:
-                      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                  subdomains: const ['a', 'b', 'c'],
-                ),
-                MarkerLayer(
-                  markers: [
-                    Marker(
-                      point: LatLng(
-                        currentPositon.latitude,
-                        currentPositon.longitude,
-                      ),
-                      child: const Icon(
-                        Icons.home,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+            KakaoMap(
+              onMapCreated: ((controller) async {
+                mapController = controller;
+
+                markers.add(Marker(
+                  markerId: UniqueKey().toString(),
+                  latLng: await mapController.getCenter(),
+                ));
+
+                setState(() {});
+              }),
+              markers: markers.toList(),
+              center: LatLng(37.3608681, 126.9306506),
             ),
             Positioned(
               bottom: 20,
