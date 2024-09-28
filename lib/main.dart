@@ -68,7 +68,7 @@ class _AppState extends State<App> {
         // Define your custom colors here
         // You can also define these colors in the colorScheme
         colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: const Color.fromARGB(255, 249, 249, 249),
+          primary: const Color.fromARGB(200, 0, 0, 0),
           secondary: const Color(0xFFFFBF5D),
           surface: const Color.fromARGB(255, 249, 249, 249),
           onSurfaceVariant: const Color.fromARGB(255, 241, 241, 241),
