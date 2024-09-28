@@ -11,7 +11,7 @@ class ListOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> optionList = listOptions.keys.toList();
+    List<String> categoryList = categoryString.keys.toList();
 
     return BlocBuilder<OptionCubit, OptionState>(
       builder: (context, OptionState state) {
@@ -19,9 +19,9 @@ class ListOptions extends StatelessWidget {
           height: 60,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: optionList.length,
+            itemCount: categoryList.length,
             itemBuilder: (context, index) {
-              String option = listOptions[optionList[index]] as String;
+              String option = categoryString[categoryList[index]] as String;
               return BlocBuilder<SpotsCubit, SpotsState>(
                 builder: (context, spotState) {
                   return Row(
@@ -35,7 +35,7 @@ class ListOptions extends StatelessWidget {
                         child: TextButton(
                           style: TextButton.styleFrom(
                               backgroundColor: state is OptionLoaded &&
-                                      state.currentOption == optionList[index]
+                                      state.currentOption == categoryList[index]
                                   ? Colors.black // 배경색
                                   : Colors.white,
                               shape: RoundedRectangleBorder(
@@ -44,10 +44,14 @@ class ListOptions extends StatelessWidget {
                               ),
                               overlayColor: Colors.black),
                           onPressed: () {
-                            if (state is! OptionLoading) {
-                              context
-                                  .read<OptionCubit>()
-                                  .setOption(optionList[index]);
+                            if (state is OptionLoaded) {
+                              if (state.currentOption == categoryList[index]) {
+                                context.read<OptionCubit>().setOption('');
+                              } else {
+                                context
+                                    .read<OptionCubit>()
+                                    .setOption(categoryList[index]);
+                              }
                             }
                           },
                           child: Text(
@@ -56,7 +60,8 @@ class ListOptions extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 20,
                                 color: state is OptionLoaded &&
-                                        state.currentOption == optionList[index]
+                                        state.currentOption ==
+                                            categoryList[index]
                                     ? Colors.white
                                     : Colors.black),
                           ),

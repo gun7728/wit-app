@@ -17,7 +17,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<Spots> spotList = [];
+  List<Spots> originSpotList = [];
+  List<Spots> optionSpotList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -40,31 +41,33 @@ class _HomeState extends State<Home> {
           BlocBuilder<SpotsCubit, SpotsState>(
             builder: (context, SpotsState state) {
               if (state is SpotsLoaded) {
-                spotList = state.spots;
+                originSpotList = state.spots;
               }
 
               return BlocBuilder<OptionCubit, OptionState>(
                   builder: (context, OptionState state) {
                 if (state is OptionLoaded) {
-                  if (state.currentOption == 'R') {
-                    spotList
-                        .sort((a, b) => a.createdtime.compareTo(b.createdtime));
-                  }
-                  if (state.currentOption == 'O') {
-                    spotList.sort((a, b) => a.title.compareTo(b.title));
-                  }
-                  if (state.currentOption == 'Q') {
-                    spotList.sort((a, b) => a.title.compareTo(b.modifiedtime));
+                  if (state.currentOption.isNotEmpty) {
+                    optionSpotList = originSpotList
+                        .where((spot) =>
+                            spot.cat2.toString() ==
+                            state.currentOption.toString())
+                        .toList();
+                  } else {
+                    optionSpotList = originSpotList;
                   }
                 }
-                return spotList.isEmpty
+                return optionSpotList.isEmpty
                     ? const SizedBox(
                         height: 200,
                         child: Center(
                           child: Text('No Datas'),
                         ),
                       )
-                    : PreviewList(spots: spotList.sublist(0, 5));
+                    : PreviewList(
+                        spots: optionSpotList.length >= 5
+                            ? optionSpotList.sublist(0, 5)
+                            : optionSpotList);
               });
             },
           ),

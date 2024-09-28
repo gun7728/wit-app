@@ -166,7 +166,9 @@ class _SplashState extends State<Splash> {
                                     widget.setCurrentIndex(0);
                                   },
                                   child: isLoading
-                                      ? const CircularProgressIndicator()
+                                      ? const CircularProgressIndicator(
+                                          color: Colors.white,
+                                        )
                                       : const Text(
                                           'Start',
                                           style: TextStyle(
