@@ -65,6 +65,7 @@ class _AppState extends State<App> {
       scrollBehavior: MyCustomScrollBehavior(),
       theme: ThemeData(
         fontFamily: 'Pretendard',
+        useMaterial3: false,
         // Define your custom colors here
         // You can also define these colors in the colorScheme
         colorScheme: ColorScheme.fromSwatch().copyWith(

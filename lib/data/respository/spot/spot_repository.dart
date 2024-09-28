@@ -20,7 +20,7 @@ class SpotRepository {
         'locationBasedList1?serviceKey=$publicKey&numOfRows=10&pageNo=$page&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A&mapX=$mapX&mapY=$mapY&radius=1000$typeString';
 
     final String url = '$baseUrl/$locationBasedListUrl';
-    print(url);
+
     try {
       final response = await _dio.get(url.toString());
 
