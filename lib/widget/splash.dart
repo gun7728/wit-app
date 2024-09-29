@@ -163,7 +163,7 @@ class _SplashState extends State<Splash> {
                                 width: double.infinity,
                                 child: TextButton(
                                   onPressed: () {
-                                    widget.setCurrentIndex(0);
+                                    if (!isLoading) widget.setCurrentIndex(0);
                                   },
                                   child: isLoading
                                       ? const CircularProgressIndicator(
