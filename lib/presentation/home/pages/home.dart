@@ -98,6 +98,9 @@ class _HomeState extends State<Home> {
                       Icons.search,
                       color: Colors.white,
                     ),
+                    SizedBox(
+                      width: 10,
+                    ),
                     Center(
                       child: Text(
                         '이미지 검색을 시도해보세요!',
