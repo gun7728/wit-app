@@ -3,12 +3,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:wit_app/data/respository/position/position_repository.dart';
 import 'package:wit_app/data/respository/spot/spot_repository.dart';
 import 'package:wit_app/presentation/home/bloc/infinite_spot_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/option_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/position_cubit.dart';
+import 'package:wit_app/presentation/home/bloc/selected_spot_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/spots_cubit.dart';
 import 'package:wit_app/presentation/home/components/search/search_list.dart';
 import 'package:wit_app/presentation/home/pages/home.dart';
@@ -19,8 +19,8 @@ import 'package:wit_app/widget/splash.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await dotenv.load(fileName: '.env');
-  AuthRepository.initialize(appKey: dotenv.get('KAKAO_MAP_KEY'));
   runApp(const App());
 }
 
@@ -78,6 +78,9 @@ class _AppState extends State<App> {
         providers: [
           BlocProvider(
             create: (context) => SpotsCubit(spotRepository: spotRepository),
+          ),
+          BlocProvider(
+            create: (context) => SelectedSpotCubit(),
           ),
           BlocProvider(
             create: (context) =>

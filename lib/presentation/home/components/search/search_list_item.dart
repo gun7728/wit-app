@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wit_app/data/models/spots.dart';
+import 'package:wit_app/presentation/home/bloc/selected_spot_cubit.dart';
 
 class SearchListItem extends StatelessWidget {
   final Function(int)? setCurrentIndex;
@@ -98,13 +100,8 @@ class SearchListItem extends StatelessWidget {
                   ),
                   child: IconButton(
                     onPressed: () {
-                      print(spot);
+                      context.read<SelectedSpotCubit>().setSelectedSpot(spot);
                       setCurrentIndex!(2);
-                      // Example of passing someObject to MapPage
-                      // Navigator.push(
-                      //   context,
-                      //   setCurrentIndex(1),
-                      // );
                     },
                     icon: const Icon(
                       Icons.map_outlined,

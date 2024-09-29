@@ -3,56 +3,39 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wit_app/data/models/spots.dart';
 import 'package:wit_app/data/respository/spot/spot_repository.dart';
-import 'package:wit_app/presentation/home/bloc/spot_cubit.dart';
-import 'package:wit_app/presentation/home/bloc/spot_state.dart';
+import 'package:wit_app/presentation/home/bloc/selected_spot_cubit.dart';
+import 'package:wit_app/presentation/home/bloc/spots_cubit.dart';
+import 'package:wit_app/presentation/home/bloc/spots_state.dart';
 import 'package:wit_app/presentation/home/components/detail/spot_detail.dart';
 
 class PreviewListItem extends StatelessWidget {
-  final String title;
-  final String addr1;
-  final String tel;
-  final String firstimage;
-  final String contentid;
-  final String contenttypeid;
+  final Spots spot;
 
   const PreviewListItem({
     super.key,
-    required this.title,
-    required this.addr1,
-    required this.tel,
-    required this.firstimage,
-    required this.contentid,
-    required this.contenttypeid,
+    required this.spot,
   });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SpotCubit(spotRepository: SpotRepository()),
+      create: (context) => SpotsCubit(spotRepository: SpotRepository()),
       child: Builder(
-        builder: (context) => BlocListener<SpotCubit, SpotState>(
+        builder: (context) => BlocListener<SpotsCubit, SpotsState>(
           listener: (context, state) {
-            if (state is SpotLoaded) {
-              if (state.spot != null) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (contextLoginScreen) {
-                    return BlocProvider.value(
-                      value: BlocProvider.of<SpotCubit>(context),
-                      child: SpotDetail(firstimage: firstimage),
-                    );
-                  }),
-                );
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('No detail'),
-                    duration: Duration(milliseconds: 200),
-                  ),
-                );
-              }
-            } else if (state is SpotError) {
+            if (state is SpotsLoaded) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (contextLoginScreen) {
+                  return BlocProvider.value(
+                    value: BlocProvider.of<SpotsCubit>(context),
+                    child: SpotDetail(firstimage: spot.firstimage),
+                  );
+                }),
+              );
+            } else if (state is SpotsError) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text('Error: ${state.message}')),
               );
@@ -69,7 +52,7 @@ class PreviewListItem extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
             ),
             onPressed: () {
-              context.read<SpotCubit>().getSpotDetail(contentid, contenttypeid);
+              context.read<SelectedSpotCubit>().setSelectedSpot(spot);
             },
             child: Stack(
               children: [
@@ -79,9 +62,9 @@ class PreviewListItem extends StatelessWidget {
                   height: 380,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25),
-                    image: firstimage != ''
+                    image: spot.firstimage != ''
                         ? DecorationImage(
-                            image: CachedNetworkImageProvider(firstimage),
+                            image: CachedNetworkImageProvider(spot.firstimage),
                             fit: BoxFit.cover,
                           )
                         : const DecorationImage(
@@ -151,10 +134,10 @@ class PreviewListItem extends StatelessWidget {
                           child: SizedBox(
                             width: 300,
                             height: 380,
-                            child: firstimage != ''
+                            child: spot.firstimage != ''
                                 ? CachedNetworkImage(
                                     fit: BoxFit.cover,
-                                    imageUrl: firstimage,
+                                    imageUrl: spot.firstimage,
                                     placeholder: (context, url) => const Center(
                                         child: CircularProgressIndicator()),
                                     errorWidget: (context, url, error) {
@@ -189,7 +172,7 @@ class PreviewListItem extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              title,
+                              spot.title,
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -198,7 +181,7 @@ class PreviewListItem extends StatelessWidget {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              addr1,
+                              spot.addr1,
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 14.0,
