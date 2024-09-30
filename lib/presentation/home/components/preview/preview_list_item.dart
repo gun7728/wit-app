@@ -179,7 +179,7 @@ class PreviewListItem extends StatelessWidget {
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
-                                fontSize: screenWidth * 0.03,
+                                fontSize: screenWidth * 0.04,
                               ),
                             ),
                             const SizedBox(height: 4),
@@ -187,7 +187,7 @@ class PreviewListItem extends StatelessWidget {
                               spot.addr1,
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: screenWidth * 0.02,
+                                fontSize: screenWidth * 0.03,
                               ),
                             ),
                           ],

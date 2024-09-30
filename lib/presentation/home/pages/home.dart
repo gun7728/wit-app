@@ -22,6 +22,9 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Container(
         color: Theme.of(context).colorScheme.surface,
@@ -35,7 +38,10 @@ class _HomeState extends State<Home> {
                     SizedBox(height: 10),
                     ListOptions(),
                     SizedBox(height: 10),
-                    AllListTrigger(),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: AllListTrigger(),
+                    ),
                     SizedBox(height: 10),
                   ],
                 ),
@@ -80,7 +86,7 @@ class _HomeState extends State<Home> {
               left: 0,
               right: 0,
               child: Container(
-                height: 60, // 배너의 높이 설정
+                height: screenHeight * 0.06, // 배너의 높이 설정
                 decoration: const BoxDecoration(
                   color: Color(0xFF106DF4),
                   borderRadius: BorderRadius.only(
@@ -88,20 +94,21 @@ class _HomeState extends State<Home> {
                     topLeft: Radius.circular(15),
                   ),
                 ),
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.search,
                       color: Colors.white,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Center(
                       child: Text(
                         '이미지 검색을 시도해보세요!',
-                        style: TextStyle(color: Colors.white, fontSize: 18),
+                        style: TextStyle(
+                            color: Colors.white, fontSize: screenWidth * 0.03),
                       ),
                     ),
                   ],
