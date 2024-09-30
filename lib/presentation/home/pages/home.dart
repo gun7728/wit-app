@@ -80,7 +80,7 @@ class _HomeState extends State<Home> {
             ),
             // 배너 추가
             Positioned(
-              bottom: 10, // 리스트와 내비게이션 바 사이에 위치하도록 조정
+              bottom: 0, // 리스트와 내비게이션 바 사이에 위치하도록 조정
               left: 0,
               right: 0,
               child: Container(
