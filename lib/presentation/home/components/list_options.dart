@@ -15,6 +15,8 @@ class ListOptions extends StatelessWidget {
 
     return BlocBuilder<OptionCubit, OptionState>(
       builder: (context, OptionState state) {
+        double screenWidth = MediaQuery.of(context).size.width;
+
         return SizedBox(
           height: 60,
           child: ListView.builder(
@@ -30,7 +32,7 @@ class ListOptions extends StatelessWidget {
                         width: 20,
                       ),
                       SizedBox(
-                        width: 120,
+                        width: screenWidth * 0.2,
                         height: 40,
                         child: TextButton(
                           style: TextButton.styleFrom(
@@ -58,7 +60,7 @@ class ListOptions extends StatelessWidget {
                             textAlign: TextAlign.center,
                             option,
                             style: TextStyle(
-                                fontSize: 20,
+                                fontSize: screenWidth * 0.03,
                                 color: state is OptionLoaded &&
                                         state.currentOption ==
                                             categoryList[index]
