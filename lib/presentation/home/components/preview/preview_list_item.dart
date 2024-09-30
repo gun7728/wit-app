@@ -20,6 +20,9 @@ class PreviewListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return BlocProvider(
       create: (context) => SpotsCubit(spotRepository: SpotRepository()),
       child: Builder(
@@ -58,8 +61,8 @@ class PreviewListItem extends StatelessWidget {
               children: [
                 // Blurred background
                 Container(
-                  width: 260,
-                  height: 300,
+                  width: screenWidth * 0.5,
+                  height: screenHeight * 0.4,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25),
                     image: spot.firstimage != ''
@@ -132,8 +135,8 @@ class PreviewListItem extends StatelessWidget {
                           },
                           blendMode: BlendMode.dstIn,
                           child: SizedBox(
-                            width: 260,
-                            height: 300,
+                            width: screenWidth * 0.5,
+                            height: screenHeight * 0.4,
                             child: spot.firstimage != ''
                                 ? CachedNetworkImage(
                                     fit: BoxFit.cover,

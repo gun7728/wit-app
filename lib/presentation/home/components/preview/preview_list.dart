@@ -8,10 +8,12 @@ class PreviewList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Column(
       children: [
         SizedBox(
-          height: 300,
+          height: screenHeight * 0.4,
           child: ListView.builder(
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,

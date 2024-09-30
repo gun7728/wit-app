@@ -32,14 +32,14 @@ class _HomeState extends State<Home> {
               children: [
                 const Column(
                   children: [
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
                     ListOptions(),
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: AllListTrigger(),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
                   ],
                 ),
                 BlocBuilder<SpotsCubit, SpotsState>(
@@ -63,7 +63,7 @@ class _HomeState extends State<Home> {
                       }
                       return optionSpotList.isEmpty
                           ? const SizedBox(
-                              height: 200,
+                              height: 120,
                               child: Center(
                                 child: Text('No Datas'),
                               ),

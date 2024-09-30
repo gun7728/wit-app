@@ -32,6 +32,9 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return BlocListener<SpotsCubit, SpotsState>(
       listener: (context, SpotsState state) {
         if (state is SpotsLoaded) {
@@ -50,23 +53,23 @@ class _SplashState extends State<Splash> {
         ),
         child: Stack(
           children: [
-            const Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
                   width: double.infinity,
-                  height: 120,
+                  height: screenHeight * 0.15,
                 ),
                 SizedBox(
-                  width: 210,
+                  width: screenWidth * 0.4,
                   child: Text(
                     'Trip',
                     textAlign: TextAlign.left,
                     style: TextStyle(
                         height: 1,
                         color: Colors.white,
-                        fontSize: 60,
-                        shadows: [
+                        fontSize: screenWidth * 0.08,
+                        shadows: const [
                           Shadow(
                             blurRadius: 10.0, // 그림자 흐림
                             color: Colors.black, // 그림자 색상
@@ -77,15 +80,15 @@ class _SplashState extends State<Splash> {
                   ),
                 ),
                 SizedBox(
-                  width: 210,
+                  width: screenWidth * 0.4,
                   child: Text(
                     'To',
                     textAlign: TextAlign.left,
                     style: TextStyle(
                         height: 1,
                         color: Colors.white,
-                        fontSize: 60,
-                        shadows: [
+                        fontSize: screenWidth * 0.08,
+                        shadows: const [
                           Shadow(
                             blurRadius: 10.0, // 그림자 흐림
                             color: Colors.black, // 그림자 색상
@@ -96,15 +99,15 @@ class _SplashState extends State<Splash> {
                   ),
                 ),
                 SizedBox(
-                  width: 210,
+                  width: screenWidth * 0.4,
                   child: Text(
                     'Seoul',
                     textAlign: TextAlign.left,
                     style: TextStyle(
                         height: .8,
                         color: Colors.white,
-                        fontSize: 80,
-                        shadows: [
+                        fontSize: screenWidth * 0.15,
+                        shadows: const [
                           Shadow(
                             blurRadius: 10.0, // 그림자 흐림
                             color: Colors.black, // 그림자 색상
@@ -130,22 +133,22 @@ class _SplashState extends State<Splash> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           "Greatest Spots in Seoul",
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 28,
+                            fontSize: screenWidth * 0.05,
                           ),
                         ),
                         const SizedBox(
                           height: 10,
                         ),
-                        const Text(
+                        Text(
                           'Travel destinations based on data provided by the Korea Tourism Organization',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 16.5,
+                            fontSize: screenWidth * 0.03,
                           ),
                         ),
                         const SizedBox(
@@ -169,10 +172,10 @@ class _SplashState extends State<Splash> {
                                       ? const CircularProgressIndicator(
                                           color: Colors.white,
                                         )
-                                      : const Text(
+                                      : Text(
                                           'Start',
                                           style: TextStyle(
-                                            fontSize: 18,
+                                            fontSize: screenWidth * 0.05,
                                             color: Colors.white,
                                             fontWeight: FontWeight.w800,
                                           ),
