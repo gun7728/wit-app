@@ -30,8 +30,8 @@ class ListOptions extends StatelessWidget {
                         width: 20,
                       ),
                       SizedBox(
-                        width: 140,
-                        height: 45,
+                        width: 100,
+                        height: 35,
                         child: TextButton(
                           style: TextButton.styleFrom(
                               backgroundColor: state is OptionLoaded &&

@@ -58,8 +58,8 @@ class PreviewListItem extends StatelessWidget {
               children: [
                 // Blurred background
                 Container(
-                  width: 300,
-                  height: 380,
+                  width: 260,
+                  height: 300,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25),
                     image: spot.firstimage != ''
@@ -132,8 +132,8 @@ class PreviewListItem extends StatelessWidget {
                           },
                           blendMode: BlendMode.dstIn,
                           child: SizedBox(
-                            width: 300,
-                            height: 380,
+                            width: 260,
+                            height: 300,
                             child: spot.firstimage != ''
                                 ? CachedNetworkImage(
                                     fit: BoxFit.cover,

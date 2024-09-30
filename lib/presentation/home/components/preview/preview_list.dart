@@ -11,7 +11,7 @@ class PreviewList extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: 380,
+          height: 300,
           child: ListView.builder(
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
