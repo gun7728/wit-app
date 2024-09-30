@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wit_app/presentation/home/bloc/position_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/spots_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/type_cubit.dart';
-import 'package:wit_app/presentation/home/components/search/search_list.dart';
+import 'package:wit_app/presentation/home/components/search/text/text_search_list.dart';
 
 class AlwaysDisabledFocusNode extends FocusNode {
   @override
@@ -39,7 +39,7 @@ class SearchInput extends StatelessWidget {
                       value: BlocProvider.of<SpotsCubit>(context),
                     )
                   ],
-                  child: const SearchList(),
+                  child: const TextSearchList(),
                 );
               }),
             );

@@ -5,17 +5,17 @@ import 'package:wit_app/presentation/home/bloc/option_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/option_state.dart';
 import 'package:wit_app/presentation/home/bloc/spots_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/spots_state.dart';
-import 'package:wit_app/presentation/home/components/search/search_list_item.dart';
+import 'package:wit_app/presentation/home/components/search/text/text_search_list_item.dart';
 
-class SearchList extends StatefulWidget {
+class TextSearchList extends StatefulWidget {
   final Function(int)? setCurrentIndex;
-  const SearchList({super.key, this.setCurrentIndex});
+  const TextSearchList({super.key, this.setCurrentIndex});
 
   @override
-  _SearchListState createState() => _SearchListState();
+  _TextSearchListState createState() => _TextSearchListState();
 }
 
-class _SearchListState extends State<SearchList> {
+class _TextSearchListState extends State<TextSearchList> {
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
   final ScrollController _scrollController = ScrollController();
@@ -163,7 +163,7 @@ class _SearchListState extends State<SearchList> {
                         controller: _scrollController,
                         itemCount: _displayedSpots.length,
                         itemBuilder: (context, index) {
-                          return SearchListItem(
+                          return TextSearchListItem(
                               spot: _displayedSpots[index],
                               setCurrentIndex: widget.setCurrentIndex);
                         },

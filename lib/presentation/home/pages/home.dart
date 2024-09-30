@@ -10,7 +10,8 @@ import 'package:wit_app/presentation/home/components/list_options.dart';
 import 'package:wit_app/presentation/home/components/preview/preview_list.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  final Function(int) setCurrentIndex;
+  const Home({super.key, required this.setCurrentIndex});
 
   @override
   State<Home> createState() => _HomeState();
@@ -40,7 +41,6 @@ class _HomeState extends State<Home> {
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: AllListTrigger(),
                     ),
-                    SizedBox(height: 10),
                   ],
                 ),
                 BlocBuilder<SpotsCubit, SpotsState>(
@@ -103,10 +103,16 @@ class _HomeState extends State<Home> {
                       width: 10,
                     ),
                     Center(
-                      child: Text(
-                        '이미지 검색을 시도해보세요!',
-                        style: TextStyle(
-                            color: Colors.white, fontSize: screenWidth * 0.03),
+                      child: TextButton(
+                        onPressed: () {
+                          widget.setCurrentIndex(3);
+                        },
+                        child: Text(
+                          '이미지 검색을 시도해보세요!',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: screenWidth * 0.03),
+                        ),
                       ),
                     ),
                   ],

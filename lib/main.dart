@@ -10,7 +10,8 @@ import 'package:wit_app/presentation/home/bloc/option_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/position_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/selected_spot_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/spots_cubit.dart';
-import 'package:wit_app/presentation/home/components/search/search_list.dart';
+import 'package:wit_app/presentation/home/components/search/image/image_search.dart';
+import 'package:wit_app/presentation/home/components/search/text/text_search_list.dart';
 import 'package:wit_app/presentation/home/pages/home.dart';
 import 'package:wit_app/presentation/map/pages/map_page.dart';
 import 'package:wit_app/widget/default_bottom_nav.dart';
@@ -48,9 +49,10 @@ class _AppState extends State<App> {
     final positionRepository = PositionRepository();
 
     final List<Widget> pages = [
-      const Home(),
-      SearchList(setCurrentIndex: setCurrentIndex),
+      Home(setCurrentIndex: setCurrentIndex),
+      TextSearchList(setCurrentIndex: setCurrentIndex),
       const MapPage(),
+      const ImageSearch()
     ];
 
     dynamic appBarCall(currentIndex) {
@@ -100,7 +102,7 @@ class _AppState extends State<App> {
           body: _currentIndex == -1
               ? Splash(setCurrentIndex: setCurrentIndex)
               : pages[_currentIndex], // Display the selected page
-          bottomNavigationBar: _currentIndex >= 0
+          bottomNavigationBar: (_currentIndex >= 0 && _currentIndex != 3)
               ? DefaultBottomNav(
                   currentIndex: _currentIndex,
                   setCurrentIndex: setCurrentIndex,

@@ -4,10 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wit_app/data/models/spots.dart';
 import 'package:wit_app/presentation/home/bloc/selected_spot_cubit.dart';
 
-class SearchListItem extends StatelessWidget {
+class TextSearchListItem extends StatelessWidget {
   final Function(int)? setCurrentIndex;
   final Spots spot;
-  const SearchListItem({super.key, required this.spot, this.setCurrentIndex});
+  const TextSearchListItem(
+      {super.key, required this.spot, this.setCurrentIndex});
 
   @override
   Widget build(BuildContext context) {
