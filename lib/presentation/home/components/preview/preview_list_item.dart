@@ -176,18 +176,18 @@ class PreviewListItem extends StatelessWidget {
                           children: [
                             Text(
                               spot.title,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 22.0,
+                                fontSize: screenWidth * 0.03,
                               ),
                             ),
                             const SizedBox(height: 4),
                             Text(
                               spot.addr1,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 14.0,
+                                fontSize: screenWidth * 0.02,
                               ),
                             ),
                           ],

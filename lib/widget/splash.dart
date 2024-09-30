@@ -61,10 +61,10 @@ class _SplashState extends State<Splash> {
                   height: screenHeight * 0.15,
                 ),
                 SizedBox(
-                  width: screenWidth * 0.4,
+                  width: screenWidth * 0.5,
                   child: Text(
                     'Trip',
-                    textAlign: TextAlign.left,
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                         height: 1,
                         color: Colors.white,
@@ -80,10 +80,10 @@ class _SplashState extends State<Splash> {
                   ),
                 ),
                 SizedBox(
-                  width: screenWidth * 0.4,
+                  width: screenWidth * 0.5,
                   child: Text(
                     'To',
-                    textAlign: TextAlign.left,
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                         height: 1,
                         color: Colors.white,
@@ -99,10 +99,10 @@ class _SplashState extends State<Splash> {
                   ),
                 ),
                 SizedBox(
-                  width: screenWidth * 0.4,
+                  width: screenWidth * 0.5,
                   child: Text(
                     'Seoul',
-                    textAlign: TextAlign.left,
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                         height: .8,
                         color: Colors.white,

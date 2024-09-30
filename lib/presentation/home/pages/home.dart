@@ -35,10 +35,7 @@ class _HomeState extends State<Home> {
                     SizedBox(height: 10),
                     ListOptions(),
                     SizedBox(height: 10),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: AllListTrigger(),
-                    ),
+                    AllListTrigger(),
                     SizedBox(height: 10),
                   ],
                 ),

@@ -18,14 +18,15 @@ class _MainAppBarState extends State<MainAppBar> {
   Widget build(BuildContext context) {
     return BlocBuilder<PositionCubit, PositionState>(
       builder: (context, PositionState state) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: AppBar(
-            backgroundColor: Theme.of(context).colorScheme.surface,
-            scrolledUnderElevation: 0,
-            toolbarHeight: 70,
-            centerTitle: false,
-            title: Column(
+        return AppBar(
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          scrolledUnderElevation: 0,
+          toolbarHeight: 70,
+          centerTitle: false,
+          titleSpacing: 0,
+          title: SizedBox(
+            width: double.infinity,
+            child: Column(
               children: [
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
