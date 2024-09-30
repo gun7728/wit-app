@@ -24,17 +24,17 @@ class _MainAppBarState extends State<MainAppBar> {
           toolbarHeight: 70,
           centerTitle: false,
           titleSpacing: 0,
-          title: SizedBox(
+          title: const SizedBox(
             width: double.infinity,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: EdgeInsets.symmetric(horizontal: 10),
               child: Column(
                 children: [
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         'Trip to',
                         style: TextStyle(
                           color: Colors.black,
@@ -42,29 +42,29 @@ class _MainAppBarState extends State<MainAppBar> {
                           fontWeight: FontWeight.w200,
                         ),
                       ),
-                      TextButton.icon(
-                        onPressed: () {
-                          context.read<PositionCubit>().getPosition();
-                        },
-                        icon: const Icon(
-                          Icons.my_location,
-                          size: 15,
-                          color: Color(0xff106df4),
-                        ),
-                        label: Text(
-                          state is PositionLoaded
-                              ? (state.positionKor != null
-                                  ? '${state.positionKor}'
-                                  : 'Get Location')
-                              : 'Get Location',
-                          style: const TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
+                      // TextButton.icon(
+                      //   onPressed: () {
+                      //     context.read<PositionCubit>().getPosition();
+                      //   },
+                      //   icon: const Icon(
+                      //     Icons.my_location,
+                      //     size: 15,
+                      //     color: Color(0xff106df4),
+                      //   ),
+                      //   label: Text(
+                      //     state is PositionLoaded
+                      //         ? (state.positionKor != null
+                      //             ? '${state.positionKor}'
+                      //             : 'Get Location')
+                      //         : 'Get Location',
+                      //     style: const TextStyle(
+                      //       color: Colors.black,
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
-                  const Row(
+                  Row(
                     children: [
                       Text(
                         'Seoul',
@@ -76,7 +76,7 @@ class _MainAppBarState extends State<MainAppBar> {
                       ),
                     ],
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 10,
                   )
                 ],
