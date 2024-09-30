@@ -131,11 +131,11 @@ class _TextSearchListState extends State<TextSearchList> {
             final optionState = context.read<OptionCubit>().state;
             if (optionState is OptionLoaded) {
               if (optionState.currentOption == 'R') {
-                spotList.sort((a, b) => a.createdtime.compareTo(b.createdtime));
+                spotList.sort((a, b) => a.createTime.compareTo(b.createTime));
               } else if (optionState.currentOption == 'O') {
                 spotList.sort((a, b) => a.title.compareTo(b.title));
               } else if (optionState.currentOption == 'Q') {
-                spotList.sort((a, b) => a.title.compareTo(b.modifiedtime));
+                spotList.sort((a, b) => a.title.compareTo(b.createTime));
               }
             }
 

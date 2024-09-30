@@ -34,7 +34,7 @@ class PreviewListItem extends StatelessWidget {
                 MaterialPageRoute(builder: (contextLoginScreen) {
                   return BlocProvider.value(
                     value: BlocProvider.of<SpotsCubit>(context),
-                    child: SpotDetail(firstimage: spot.firstimage),
+                    child: SpotDetail(firstimage: spot.firstImage),
                   );
                 }),
               );
@@ -65,9 +65,9 @@ class PreviewListItem extends StatelessWidget {
                   height: screenHeight * 0.4,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25),
-                    image: spot.firstimage != ''
+                    image: spot.firstImage != ''
                         ? DecorationImage(
-                            image: CachedNetworkImageProvider(spot.firstimage),
+                            image: CachedNetworkImageProvider(spot.firstImage),
                             fit: BoxFit.cover,
                           )
                         : const DecorationImage(
@@ -137,10 +137,10 @@ class PreviewListItem extends StatelessWidget {
                           child: SizedBox(
                             width: screenWidth * 0.5,
                             height: screenHeight * 0.4,
-                            child: spot.firstimage != ''
+                            child: spot.firstImage != ''
                                 ? CachedNetworkImage(
                                     fit: BoxFit.cover,
-                                    imageUrl: spot.firstimage,
+                                    imageUrl: spot.firstImage,
                                     placeholder: (context, url) => const Center(
                                         child: CircularProgressIndicator()),
                                     errorWidget: (context, url, error) {

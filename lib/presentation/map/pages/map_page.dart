@@ -54,12 +54,12 @@ class _MapPageState extends State<MapPage> {
     if (spotState is SpotsLoaded) {
       for (var spot in spotState.spots) {
         Marker marker = Marker(
-          point: LatLng(double.parse(spot.mapy), double.parse(spot.mapx)),
+          point: LatLng(double.parse(spot.yCoord), double.parse(spot.xCoord)),
           child: GestureDetector(
             onTap: () {
               // 마커 클릭 시 지도의 위치와 줌을 설정
               mapController.move(
-                LatLng(double.parse(spot.mapy), double.parse(spot.mapx)),
+                LatLng(double.parse(spot.yCoord), double.parse(spot.xCoord)),
                 16.5, // 줌 레벨 설정
               );
             },
@@ -68,8 +68,8 @@ class _MapPageState extends State<MapPage> {
                     spot: spot,
                     onTap: () {
                       mapController.move(
-                        LatLng(
-                            double.parse(spot.mapy), double.parse(spot.mapx)),
+                        LatLng(double.parse(spot.yCoord),
+                            double.parse(spot.xCoord)),
                         16.5,
                       );
                     },

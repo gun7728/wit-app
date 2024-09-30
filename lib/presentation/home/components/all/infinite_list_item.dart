@@ -15,11 +15,11 @@ class InfiniteListItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Single image filling the width
-          if (spots.firstimage.isNotEmpty)
+          if (spots.firstImage.isNotEmpty)
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
-                imageUrl: spots.firstimage,
+                imageUrl: spots.firstImage,
                 width: double.infinity,
                 height: 200,
                 fit: BoxFit.cover,

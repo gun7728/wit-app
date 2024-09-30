@@ -8,10 +8,10 @@ import 'package:wit_app/presentation/home/bloc/spots_state.dart';
 import 'package:wit_app/presentation/home/components/all_list_trigger.dart';
 import 'package:wit_app/presentation/home/components/list_options.dart';
 import 'package:wit_app/presentation/home/components/preview/preview_list.dart';
+import 'package:wit_app/presentation/home/components/search/image/image_search.dart';
 
 class Home extends StatefulWidget {
-  final Function(int) setCurrentIndex;
-  const Home({super.key, required this.setCurrentIndex});
+  const Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
@@ -105,7 +105,11 @@ class _HomeState extends State<Home> {
                     Center(
                       child: TextButton(
                         onPressed: () {
-                          widget.setCurrentIndex(3);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ImageSearch()),
+                          );
                         },
                         child: Text(
                           '이미지 검색을 시도해보세요!',

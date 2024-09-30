@@ -29,7 +29,7 @@ class TextSearchListItem extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                       child: CachedNetworkImage(
                         fit: BoxFit.cover,
-                        imageUrl: spot.firstimage,
+                        imageUrl: spot.firstImage,
                         placeholder: (context, url) =>
                             const Center(child: CircularProgressIndicator()),
                         errorWidget: (context, url, error) {

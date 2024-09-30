@@ -6,6 +6,7 @@ class SpotRepository {
   final Dio _dio = Dio(); // Dio 인스턴스 생성
   final publicKey = dotenv.get('TOUR_API_ECD_KEY');
   final baseUrl = dotenv.get('BASE_URL');
+  final backBaseUrl = dotenv.get('BACKEND_BASE_URL');
 
   get http => null;
 
@@ -51,24 +52,17 @@ class SpotRepository {
   }
 
   Future<List<Spots>> getAllSpotList(option) async {
-    final locationBasedListUrl =
-        'areaBasedList1?serviceKey=$publicKey&numOfRows=1000&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=$option&contentTypeId=12&areaCode=1';
+    // final locationBasedListUrl =
+    //     'areaBasedList1?serviceKey=$publicKey&numOfRows=1000&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=$option&contentTypeId=12&areaCode=1';
 
-    final String url = '$baseUrl/$locationBasedListUrl';
+    final String url = '$backBaseUrl/list';
 
     print(url);
     try {
       final response = await _dio.get(url.toString());
 
       if (response.statusCode == 200) {
-        final responseBody = response.data;
-
-        if (responseBody['response']['body']['totalCount'] == 0) {
-          return [];
-        }
-
-        // 응답 구조에 따라 데이터 추출
-        final items = responseBody['response']['body']['items']['item'];
+        final items = response.data;
 
         if (items is List) {
           // List<Location>로 변환

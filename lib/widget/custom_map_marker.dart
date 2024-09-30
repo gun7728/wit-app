@@ -22,9 +22,9 @@ class CustomMapMarker extends StatelessWidget {
             padding: const EdgeInsets.all(1.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(6),
-              child: spot.firstimage.isNotEmpty
+              child: spot.firstImage.isNotEmpty
                   ? CachedNetworkImage(
-                      imageUrl: spot.firstimage,
+                      imageUrl: spot.firstImage,
                       width: 20,
                       height: 20,
                       fit: BoxFit.cover,
