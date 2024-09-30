@@ -35,9 +35,7 @@ class _HomeState extends State<Home> {
               children: [
                 const Column(
                   children: [
-                    SizedBox(height: 10),
                     ListOptions(),
-                    SizedBox(height: 10),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: AllListTrigger(),
