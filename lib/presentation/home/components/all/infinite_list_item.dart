@@ -1,110 +1,119 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wit_app/data/models/spots.dart';
+import 'package:wit_app/presentation/home/bloc/page_cubit.dart';
+import 'package:wit_app/presentation/home/bloc/selected_spot_cubit.dart';
 
 class InfiniteListItem extends StatelessWidget {
-  final Spots spots;
-  const InfiniteListItem({super.key, required this.spots});
+  final Spots spot;
+  const InfiniteListItem({super.key, required this.spot});
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-      elevation: 4,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Single image filling the width
-          if (spots.firstImage.isNotEmpty)
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: CachedNetworkImage(
-                imageUrl: spots.firstImage,
-                width: double.infinity,
-                height: 200,
-                fit: BoxFit.cover,
-                placeholder: (context, url) =>
-                    const Center(child: CircularProgressIndicator()),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: SizedBox(
+        height: 370,
+        width: double.infinity,
+        child: Center(
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  SizedBox(
+                    height: 300,
+                    width: double.infinity,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: CachedNetworkImage(
+                        fit: BoxFit.cover,
+                        imageUrl: spot.firstImage,
+                        placeholder: (context, url) =>
+                            const Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) {
+                          return Image.asset(
+                            'assets/noImg.webp',
+                            fit: BoxFit.cover,
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 30,
+                          width: double.infinity,
+                          child: Text(
+                            textAlign: TextAlign.start,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                            ),
+                            spot.title,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          children: [
+                            const SizedBox(
+                              height: 20,
+                              child: Icon(
+                                Icons.location_on_sharp,
+                                color: Colors.black45,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                              child: Text(
+                                textAlign: TextAlign.start,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black45,
+                                ),
+                                spot.addr1,
+                              ),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ],
               ),
-            )
-          else
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.asset(
-                'assets/noImg.webp',
-                width: double.infinity,
-                height: 200,
-                fit: BoxFit.cover,
+              Positioned(
+                top: 10,
+                right: 10,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: IconButton(
+                    onPressed: () {
+                      context.read<SelectedSpotCubit>().setSelectedSpot(spot);
+                      context.read<PageCubit>().setPage(2);
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(
+                      Icons.map_outlined,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
               ),
-            ),
-          const SizedBox(height: 10),
-          // Title
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Text(
-              spots.title,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            ],
           ),
-          const SizedBox(height: 5),
-          // Address
-          if (spots.addr1.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                children: [
-                  const Icon(Icons.location_on, size: 16, color: Colors.grey),
-                  const SizedBox(width: 5),
-                  Flexible(
-                    child: Text(
-                      spots.addr1,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
-            )
-          else
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Text('No address information'),
-            ),
-          const SizedBox(height: 5),
-          // Telephone
-          if (spots.tel.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                children: [
-                  const Icon(Icons.phone, size: 16, color: Colors.grey),
-                  const SizedBox(width: 5),
-                  Flexible(
-                    child: Text(
-                      spots.tel,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )
-          else
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Text('No contact information'),
-            ),
-          const SizedBox(height: 10),
-        ],
+        ),
       ),
     );
   }

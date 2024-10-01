@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wit_app/presentation/home/bloc/option_cubit.dart';
+import 'package:wit_app/presentation/home/bloc/page_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/position_cubit.dart';
+import 'package:wit_app/presentation/home/bloc/selected_spot_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/spots_cubit.dart';
 import 'package:wit_app/presentation/home/components/all/infinite_list.dart';
 
@@ -35,10 +37,16 @@ class AllListTrigger extends StatelessWidget {
                       value: BlocProvider.of<OptionCubit>(context),
                     ),
                     BlocProvider.value(
+                      value: BlocProvider.of<SelectedSpotCubit>(context),
+                    ),
+                    BlocProvider.value(
                       value: BlocProvider.of<PositionCubit>(context),
                     ),
                     BlocProvider.value(
                       value: BlocProvider.of<SpotsCubit>(context),
+                    ),
+                    BlocProvider.value(
+                      value: BlocProvider.of<PageCubit>(context),
                     ),
                   ],
                   child: const InfiniteList(),
