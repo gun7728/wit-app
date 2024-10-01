@@ -6,7 +6,6 @@ class SpotRepository {
   final Dio _dio = Dio(); // Dio 인스턴스 생성
   final publicKey = dotenv.get('TOUR_API_ECD_KEY');
   final baseUrl = dotenv.get('BASE_URL');
-  final backBaseUrl = dotenv.get('BACKEND_BASE_URL');
 
   get http => null;
 
@@ -55,7 +54,7 @@ class SpotRepository {
     // final locationBasedListUrl =
     //     'areaBasedList1?serviceKey=$publicKey&numOfRows=1000&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=$option&contentTypeId=12&areaCode=1';
 
-    final String url = '$backBaseUrl/list';
+    const String url = '/api/list';
 
     print(url);
     try {

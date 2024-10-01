@@ -72,9 +72,8 @@ class _ImageSearchState extends State<ImageSearch> {
       _isLoading = true;
     });
 
-    final backBaseUrl = dotenv.get('BACKEND_BASE_URL');
     try {
-      final response = await _dio.post('$backBaseUrl/search',
+      final response = await _dio.post('/api/search',
           options: Options(headers: {
             HttpHeaders.contentTypeHeader: "application/json",
           }),
