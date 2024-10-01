@@ -1,13 +1,23 @@
 {
-    "headers": [
-      {
-        "source": "/(.*)",
-        "headers": [
-          {
-            "key": "Access-Control-Allow-Origin",
-            "value": "*"
-          }
-        ]
-      }
-    ]
-  }
+  "rewrites": [
+    {
+      "source": "https://wit-back.kro.kr/:path*",
+      "destination": "https://wit-back.kro.kr/:path*"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type"
+        }
+      ]
+    }
+  ]
+}
