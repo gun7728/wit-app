@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wit_app/data/models/selected_spot.dart';
 import 'package:wit_app/data/models/spots.dart';
 import 'package:wit_app/presentation/home/bloc/option_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/option_state.dart';
+import 'package:wit_app/presentation/home/bloc/page_cubit.dart';
+import 'package:wit_app/presentation/home/bloc/selected_spot_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/spots_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/spots_state.dart';
 import 'package:wit_app/presentation/home/components/all_list_trigger.dart';
@@ -107,8 +110,20 @@ class _HomeState extends State<Home> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => const ImageSearch()),
+                            MaterialPageRoute(builder: (contextLoginScreen) {
+                              return MultiBlocProvider(providers: [
+                                BlocProvider.value(
+                                  value: BlocProvider.of<PageCubit>(context),
+                                ),
+                                BlocProvider.value(
+                                  value: BlocProvider.of<SpotsCubit>(context),
+                                ),
+                                BlocProvider.value(
+                                  value: BlocProvider.of<SelectedSpotCubit>(
+                                      context),
+                                ),
+                              ], child: const ImageSearch());
+                            }),
                           );
                         },
                         child: Text(

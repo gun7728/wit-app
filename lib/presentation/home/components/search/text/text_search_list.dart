@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wit_app/data/models/spots.dart';
+import 'package:wit_app/presentation/home/bloc/page_cubit.dart';
+import 'package:wit_app/presentation/home/bloc/selected_spot_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/spots_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/spots_state.dart';
+import 'package:wit_app/presentation/home/components/all/infinite_list_item.dart';
+import 'package:wit_app/presentation/home/components/detail/spot_detail.dart';
 import 'package:wit_app/presentation/home/components/search/text/text_search_list_item.dart';
 
 class TextSearchList extends StatefulWidget {
@@ -137,8 +141,41 @@ class _TextSearchListState extends State<TextSearchList> {
                         controller: _scrollController,
                         itemCount: _displayedSpots.length,
                         itemBuilder: (context, index) {
-                          return TextSearchListItem(
-                              spot: _displayedSpots[index]);
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (contextLoginScreen) {
+                                  return MultiBlocProvider(
+                                      providers: [
+                                        BlocProvider.value(
+                                          value: BlocProvider.of<PageCubit>(
+                                              context),
+                                        ),
+                                        BlocProvider.value(
+                                          value: BlocProvider.of<
+                                              SelectedSpotCubit>(context),
+                                        ),
+                                      ],
+                                      child: SpotDetail(
+                                          spot: _displayedSpots[index]));
+                                }),
+                              );
+                            },
+                            child: MultiBlocProvider(
+                                providers: [
+                                  BlocProvider.value(
+                                    value: BlocProvider.of<SelectedSpotCubit>(
+                                        context),
+                                  ),
+                                  BlocProvider.value(
+                                    value: BlocProvider.of<PageCubit>(context),
+                                  ),
+                                ],
+                                child: InfiniteListItem(
+                                    spot: _displayedSpots[index])),
+                          );
                         },
                       ),
               ),

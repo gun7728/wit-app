@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wit_app/presentation/home/bloc/page_cubit.dart';
+import 'package:wit_app/presentation/home/pages/home.dart';
 
 class DefaultBottomNav extends StatelessWidget {
   const DefaultBottomNav({
@@ -25,7 +28,10 @@ class DefaultBottomNav extends StatelessWidget {
         selectedLabelStyle:
             const TextStyle(fontSize: 12, fontWeight: FontWeight.w800),
         unselectedLabelStyle: const TextStyle(fontSize: 12),
-        onTap: (index) => setCurrentIndex(index),
+        onTap: (index) {
+          context.read<PageCubit>().setPage(index);
+          setCurrentIndex(index);
+        },
         currentIndex: currentIndex,
         items: const [
           BottomNavigationBarItem(
