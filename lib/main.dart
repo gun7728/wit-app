@@ -5,8 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:wit_app/data/respository/position/position_repository.dart';
 import 'package:wit_app/data/respository/spot/spot_repository.dart';
-import 'package:wit_app/presentation/home/bloc/infinite_spot_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/option_cubit.dart';
+import 'package:wit_app/presentation/home/bloc/page_cubit.dart';
+import 'package:wit_app/presentation/home/bloc/page_state.dart';
 import 'package:wit_app/presentation/home/bloc/position_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/selected_spot_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/spots_cubit.dart';
@@ -65,8 +66,6 @@ class _AppState extends State<App> {
       scrollBehavior: MyCustomScrollBehavior(),
       theme: ThemeData(
         fontFamily: 'Pretendard',
-        // Define your custom colors here
-        // You can also define these colors in the colorScheme
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: const Color.fromARGB(200, 0, 0, 0),
           secondary: const Color(0xFFFFBF5D),
@@ -90,22 +89,33 @@ class _AppState extends State<App> {
             create: (context) => OptionCubit(),
           ),
           BlocProvider(
-            create: (context) =>
-                InfiniteSpotCubit(spotRepository: spotRepository),
+            create: (context) => PageCubit(),
           ),
         ],
-        child: Scaffold(
-          backgroundColor: const Color.fromARGB(255, 249, 249, 249),
-          appBar: appBarCall(_currentIndex),
-          body: _currentIndex == -1
-              ? Splash(setCurrentIndex: setCurrentIndex)
-              : pages[_currentIndex], // Display the selected page
-          bottomNavigationBar: (_currentIndex >= 0 && _currentIndex != 3)
-              ? DefaultBottomNav(
-                  currentIndex: _currentIndex,
-                  setCurrentIndex: setCurrentIndex,
-                )
-              : null,
+        child: BlocListener<PageCubit, PageState>(
+          listener: (context, pageIndex) {
+            // Update _currentIndex when PageCubit state changes
+            if (pageIndex is PageLoaded) {
+              setCurrentIndex(pageIndex.currentPage);
+            }
+          },
+          child: BlocBuilder<PageCubit, PageState>(
+            builder: (context, state) {
+              return Scaffold(
+                backgroundColor: const Color.fromARGB(255, 249, 249, 249),
+                appBar: appBarCall(_currentIndex),
+                body: _currentIndex == -1
+                    ? Splash(setCurrentIndex: setCurrentIndex)
+                    : pages[_currentIndex], // Display the selected page
+                bottomNavigationBar: (_currentIndex >= 0 && _currentIndex != 3)
+                    ? DefaultBottomNav(
+                        currentIndex: _currentIndex,
+                        setCurrentIndex: setCurrentIndex,
+                      )
+                    : null,
+              );
+            },
+          ),
         ),
       ),
     );

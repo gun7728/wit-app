@@ -100,8 +100,8 @@ class _MapPageState extends State<MapPage> {
         if (selectedSpot != null) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             mapController.move(
-              LatLng(double.parse(selectedSpot!.mapy),
-                  double.parse(selectedSpot!.mapx)),
+              LatLng(double.parse(selectedSpot!.yCoord),
+                  double.parse(selectedSpot!.xCoord)),
               17, // 줌 레벨 설정
             );
             selectedSpot = null; // 이동 후 selectedSpot을 null로 설정

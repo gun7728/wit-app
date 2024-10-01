@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wit_app/data/models/spots.dart';
-import 'package:wit_app/presentation/home/bloc/option_cubit.dart';
-import 'package:wit_app/presentation/home/bloc/option_state.dart';
 import 'package:wit_app/presentation/home/bloc/spots_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/spots_state.dart';
 import 'package:wit_app/presentation/home/components/search/text/text_search_list_item.dart';
@@ -106,17 +104,6 @@ class _TextSearchListState extends State<TextSearchList> {
                 ),
               ),
             ),
-            // const SizedBox(
-            //   width: 10,
-            // ),
-            // SizedBox(
-            //   width: 40,
-            //   height: 40,
-            //   child: IconButton(
-            //     onPressed: () {},
-            //     icon: const Icon(Icons.tune),
-            //   ),
-            // ),
           ],
         ),
       ),
@@ -127,19 +114,6 @@ class _TextSearchListState extends State<TextSearchList> {
           if (state is SpotsLoaded) {
             spotList = state.spots;
 
-            // Apply sorting based on the OptionCubit state
-            final optionState = context.read<OptionCubit>().state;
-            if (optionState is OptionLoaded) {
-              if (optionState.currentOption == 'R') {
-                spotList.sort((a, b) => a.createTime.compareTo(b.createTime));
-              } else if (optionState.currentOption == 'O') {
-                spotList.sort((a, b) => a.title.compareTo(b.title));
-              } else if (optionState.currentOption == 'Q') {
-                spotList.sort((a, b) => a.title.compareTo(b.createTime));
-              }
-            }
-
-            // Filter the spotList based on the search query
             if (_searchQuery.isNotEmpty) {
               spotList = spotList
                   .where((spot) => spot.title
@@ -164,8 +138,7 @@ class _TextSearchListState extends State<TextSearchList> {
                         itemCount: _displayedSpots.length,
                         itemBuilder: (context, index) {
                           return TextSearchListItem(
-                              spot: _displayedSpots[index],
-                              setCurrentIndex: widget.setCurrentIndex);
+                              spot: _displayedSpots[index]);
                         },
                       ),
               ),

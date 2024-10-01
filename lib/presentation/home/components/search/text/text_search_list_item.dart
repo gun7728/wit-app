@@ -2,13 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wit_app/data/models/spots.dart';
+import 'package:wit_app/presentation/home/bloc/page_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/selected_spot_cubit.dart';
 
 class TextSearchListItem extends StatelessWidget {
-  final Function(int)? setCurrentIndex;
   final Spots spot;
-  const TextSearchListItem(
-      {super.key, required this.spot, this.setCurrentIndex});
+  const TextSearchListItem({super.key, required this.spot});
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +101,7 @@ class TextSearchListItem extends StatelessWidget {
                   child: IconButton(
                     onPressed: () {
                       context.read<SelectedSpotCubit>().setSelectedSpot(spot);
-                      setCurrentIndex!(2);
+                      context.read<PageCubit>().setPage(2);
                     },
                     icon: const Icon(
                       Icons.map_outlined,

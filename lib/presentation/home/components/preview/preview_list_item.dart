@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wit_app/data/models/spots.dart';
 import 'package:wit_app/data/respository/spot/spot_repository.dart';
+import 'package:wit_app/presentation/home/bloc/page_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/selected_spot_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/spots_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/spots_state.dart';
@@ -29,15 +30,6 @@ class PreviewListItem extends StatelessWidget {
         builder: (context) => BlocListener<SpotsCubit, SpotsState>(
           listener: (context, state) {
             if (state is SpotsLoaded) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (contextLoginScreen) {
-                  return BlocProvider.value(
-                    value: BlocProvider.of<SpotsCubit>(context),
-                    child: SpotDetail(firstimage: spot.firstImage),
-                  );
-                }),
-              );
             } else if (state is SpotsError) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text('Error: ${state.message}')),
@@ -55,7 +47,19 @@ class PreviewListItem extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
             ),
             onPressed: () {
-              context.read<SelectedSpotCubit>().setSelectedSpot(spot);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (contextLoginScreen) {
+                  return MultiBlocProvider(providers: [
+                    BlocProvider.value(
+                      value: BlocProvider.of<PageCubit>(context),
+                    ),
+                    BlocProvider.value(
+                      value: BlocProvider.of<SelectedSpotCubit>(context),
+                    ),
+                  ], child: SpotDetail(spot: spot));
+                }),
+              );
             },
             child: Stack(
               children: [
