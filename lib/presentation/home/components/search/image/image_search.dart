@@ -14,7 +14,6 @@ import 'package:wit_app/presentation/home/bloc/spots_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/spots_state.dart';
 import 'package:wit_app/presentation/home/components/all/infinite_list_item.dart';
 import 'package:wit_app/presentation/home/components/detail/spot_detail.dart';
-import 'package:wit_app/presentation/home/components/search/text/text_search_list_item.dart';
 
 class ImageSearch extends StatefulWidget {
   const ImageSearch({super.key});

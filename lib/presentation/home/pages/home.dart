@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wit_app/data/models/selected_spot.dart';
 import 'package:wit_app/data/models/spots.dart';
 import 'package:wit_app/presentation/home/bloc/option_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/option_state.dart';
