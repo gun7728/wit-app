@@ -26,7 +26,6 @@ class _ImageSearchState extends State<ImageSearch> {
   String? _base64Image;
   List<int> selections = List.filled(17, 0);
   final Dio _dio = Dio(BaseOptions(
-    baseUrl: 'https://43.201.45.113',
     headers: {
       HttpHeaders.contentTypeHeader: "application/json",
     },
