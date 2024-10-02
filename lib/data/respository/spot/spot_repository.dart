@@ -54,7 +54,7 @@ class SpotRepository {
     // final locationBasedListUrl =
     //     'areaBasedList1?serviceKey=$publicKey&numOfRows=1000&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=$option&contentTypeId=12&areaCode=1';
 
-    const String url = 'https://wit-back.kro.kr/list';
+    const String url = '/api/list';
 
     print(url);
     try {

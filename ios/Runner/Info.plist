@@ -70,5 +70,10 @@
 		<array>
 		<string>https</string>
 		</array>
+		
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>사진 라이브러리에 접근하여 이미지를 선택하기 위해 필요합니다.</string>
+		<key>NSCameraUsageDescription</key>
+		<string>카메라로 사진을 찍기 위해 필요합니다.</string>
 	</dict>
 </plist>

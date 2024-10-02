@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:universal_html/html.dart' as html;
+import 'package:image_picker/image_picker.dart';
+// import 'package:universal_html/html.dart' as html;
+import 'package:universal_html/html.dart' if (dart.library.html) 'dart:html'
+    as html;
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +16,7 @@ import 'package:wit_app/presentation/home/bloc/spots_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/spots_state.dart';
 import 'package:wit_app/presentation/home/components/all/infinite_list_item.dart';
 import 'package:wit_app/presentation/home/components/detail/spot_detail.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class ImageSearch extends StatefulWidget {
   const ImageSearch({super.key});
@@ -33,8 +37,15 @@ class _ImageSearchState extends State<ImageSearch> {
 
   // Add a loading state variable
   bool _isLoading = false;
+  Future<void> _pickImage() async {
+    if (kIsWeb) {
+      await _pickImageWeb();
+    } else {
+      await _pickImageMobile();
+    }
+  }
 
-  void _pickImage() {
+  Future<void> _pickImageWeb() async {
     html.FileUploadInputElement uploadInput = html.FileUploadInputElement();
     uploadInput.accept = 'image/*';
     uploadInput.click();
@@ -49,6 +60,18 @@ class _ImageSearchState extends State<ImageSearch> {
         });
       });
     });
+  }
+
+  Future<void> _pickImageMobile() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      final bytes = await image.readAsBytes();
+      setState(() {
+        _base64Image = 'data:image/png;base64,${base64Encode(bytes)}';
+      });
+    }
   }
 
   void mapOpen(bool) {
@@ -76,7 +99,7 @@ class _ImageSearchState extends State<ImageSearch> {
     });
 
     try {
-      final response = await _dio.post('https://wit-back.kro.kr/search',
+      final response = await _dio.post('/api/search',
           options: Options(headers: {
             HttpHeaders.contentTypeHeader: "application/json",
           }),
