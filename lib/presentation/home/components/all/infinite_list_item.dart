@@ -102,7 +102,7 @@ class InfiniteListItem extends StatelessWidget {
                     onPressed: () {
                       context.read<SelectedSpotCubit>().setSelectedSpot(spot);
                       context.read<PageCubit>().setPage(2);
-                      Navigator.pop(context);
+                      // Navigator.pop(context);
                     },
                     icon: const Icon(
                       Icons.map_outlined,

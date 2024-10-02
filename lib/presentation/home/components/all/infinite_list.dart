@@ -45,7 +45,7 @@ class _InfiniteListState extends State<InfiniteList> {
         builder: (context, PageState pageState) {
           if (pageState is PageLoaded) {
             if (pageState.currentPage == 2) {
-              // Navigator.pop(context);
+              Navigator.pop(context);
             }
           }
           return BlocBuilder<SpotsCubit, SpotsState>(
