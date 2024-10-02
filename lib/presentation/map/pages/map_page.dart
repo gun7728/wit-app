@@ -60,7 +60,7 @@ class _MapPageState extends State<MapPage> {
             TextButton(
               onPressed: () async {
                 final url =
-                    'https://map.kakao.com/link/to/${spot.title},${spot.xCoord},${spot.yCoord}';
+                    'https://map.kakao.com/link/to/${spot.title},${spot.yCoord},${spot.xCoord}';
                 if (await canLaunch(url)) {
                   await launch(url);
                 } else {
