@@ -1,9 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart' show Uint8List, kIsWeb;
+import 'package:universal_html/html.dart' as html;
 import 'package:image_picker/image_picker.dart';
-// import 'package:universal_html/html.dart' as html;
-import 'package:universal_html/html.dart' if (dart.library.html) 'dart:html'
-    as html;
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +15,6 @@ import 'package:wit_app/presentation/home/bloc/spots_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/spots_state.dart';
 import 'package:wit_app/presentation/home/components/all/infinite_list_item.dart';
 import 'package:wit_app/presentation/home/components/detail/spot_detail.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 class ImageSearch extends StatefulWidget {
   const ImageSearch({super.key});
@@ -27,6 +25,7 @@ class ImageSearch extends StatefulWidget {
 
 class _ImageSearchState extends State<ImageSearch> {
   String? _base64Image;
+  Uint8List? _imageBytes;
   List<int> selections = List.filled(17, 0);
   final Dio _dio = Dio(BaseOptions(
     headers: {
@@ -34,9 +33,8 @@ class _ImageSearchState extends State<ImageSearch> {
     },
   ));
   List<Spots> _searchResults = [];
-
-  // Add a loading state variable
   bool _isLoading = false;
+
   Future<void> _pickImage() async {
     if (kIsWeb) {
       await _pickImageWeb();
@@ -57,6 +55,7 @@ class _ImageSearchState extends State<ImageSearch> {
       reader.onLoadEnd.listen((e) {
         setState(() {
           _base64Image = reader.result as String;
+          _imageBytes = base64Decode(_base64Image!.split(',').last);
         });
       });
     });
@@ -69,6 +68,7 @@ class _ImageSearchState extends State<ImageSearch> {
     if (image != null) {
       final bytes = await image.readAsBytes();
       setState(() {
+        _imageBytes = bytes;
         _base64Image = 'data:image/png;base64,${base64Encode(bytes)}';
       });
     }
@@ -99,7 +99,8 @@ class _ImageSearchState extends State<ImageSearch> {
     });
 
     try {
-      final response = await _dio.post('/api/search',
+      final response = await _dio.post(
+          kIsWeb ? '/api/search' : 'https://wit-back.kro.kr/search',
           options: Options(headers: {
             HttpHeaders.contentTypeHeader: "application/json",
           }),
@@ -130,7 +131,6 @@ class _ImageSearchState extends State<ImageSearch> {
     }
   }
 
-  // Function to show warning dialog
   void _showWarningDialog(String message) {
     showDialog(
       context: context,
@@ -141,7 +141,7 @@ class _ImageSearchState extends State<ImageSearch> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
+                Navigator.of(context).pop();
               },
               child: const Text('OK'),
             ),
@@ -173,13 +173,11 @@ class _ImageSearchState extends State<ImageSearch> {
           ),
           body: Stack(
             children: [
-              // Use SingleChildScrollView to make the entire screen scrollable
               SingleChildScrollView(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: [
-                    // Image upload button and preview
-                    if (_base64Image == null)
+                    if (_imageBytes == null)
                       SizedBox(
                         width: screenWidth * 0.8,
                         height: screenHeight * 0.3,
@@ -203,25 +201,22 @@ class _ImageSearchState extends State<ImageSearch> {
                           ),
                         ),
                       ),
-
-                    if (_base64Image != null)
+                    if (_imageBytes != null)
                       Container(
                         margin: const EdgeInsets.symmetric(vertical: 10),
-                        child: Image.network(
-                          _base64Image!,
+                        child: Image.memory(
+                          _imageBytes!,
                           width: screenWidth * 0.8,
                           height: screenHeight * 0.3,
+                          fit: BoxFit.cover,
                         ),
                       ),
-                    if (_base64Image != null)
+                    if (_imageBytes != null)
                       ElevatedButton(
                         onPressed: _pickImage,
                         child: const Text('Change Image'),
                       ),
-
                     const SizedBox(height: 10),
-
-                    // Category selection buttons
                     Wrap(
                       spacing: 8.0,
                       runSpacing: 8.0,
@@ -253,12 +248,9 @@ class _ImageSearchState extends State<ImageSearch> {
                         );
                       }),
                     ),
-
                     const SizedBox(
                       height: 20,
                     ),
-
-                    // Send Data button
                     SizedBox(
                       width: double.infinity,
                       height: screenHeight * 0.06,
@@ -278,18 +270,13 @@ class _ImageSearchState extends State<ImageSearch> {
                         ),
                       ),
                     ),
-
                     const SizedBox(
                       height: 20,
                     ),
-
-                    // Search Results ListView
                     if (_searchResults.isNotEmpty)
                       ListView.builder(
-                        shrinkWrap:
-                            true, // Add this line to avoid infinite height issues
-                        physics:
-                            const NeverScrollableScrollPhysics(), // Disable scrolling for this ListView
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
                         itemCount: _searchResults.length,
                         itemBuilder: (context, index) {
                           return GestureDetector(
@@ -333,8 +320,6 @@ class _ImageSearchState extends State<ImageSearch> {
                   ],
                 ),
               ),
-
-              // Loading indicator
               if (_isLoading)
                 Container(
                   color: Colors.black54,
@@ -350,7 +335,6 @@ class _ImageSearchState extends State<ImageSearch> {
   }
 }
 
-// Category list
 const List<String> categories = [
   '자연',
   '한옥',

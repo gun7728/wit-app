@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:wit_app/data/models/spots.dart';
 
@@ -54,7 +55,7 @@ class SpotRepository {
     // final locationBasedListUrl =
     //     'areaBasedList1?serviceKey=$publicKey&numOfRows=1000&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=$option&contentTypeId=12&areaCode=1';
 
-    const String url = '/api/list';
+    const String url = kIsWeb ? '/api/list' : 'https://wit-back.kro.kr/list';
 
     print(url);
     try {
