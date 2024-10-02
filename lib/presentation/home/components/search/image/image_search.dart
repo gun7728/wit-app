@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'dart:html' as html;
 import 'dart:io';
+import 'package:universal_html/html.dart' as html;
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +76,7 @@ class _ImageSearchState extends State<ImageSearch> {
     });
 
     try {
-      final response = await _dio.post('/api/search',
+      final response = await _dio.post('https://wit-back.kro.kr/search',
           options: Options(headers: {
             HttpHeaders.contentTypeHeader: "application/json",
           }),
