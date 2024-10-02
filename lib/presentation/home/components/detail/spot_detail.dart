@@ -137,8 +137,8 @@ class _SpotDetailState extends State<SpotDetail> {
                         context
                             .read<SelectedSpotCubit>()
                             .setSelectedSpot(widget.spot);
-                        widget.mapOpen!(true);
                         Navigator.pop(context);
+                        widget.mapOpen!(true);
                       },
                     ),
                   ),
