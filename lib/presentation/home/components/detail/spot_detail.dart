@@ -9,7 +9,8 @@ import 'package:wit_app/presentation/home/bloc/selected_spot_cubit.dart';
 
 class SpotDetail extends StatefulWidget {
   final Spots spot;
-  const SpotDetail({super.key, required this.spot});
+  final Function(bool)? mapOpen;
+  const SpotDetail({super.key, required this.spot, this.mapOpen});
 
   @override
   State<SpotDetail> createState() => _SpotDetailState();
@@ -136,6 +137,7 @@ class _SpotDetailState extends State<SpotDetail> {
                         context
                             .read<SelectedSpotCubit>()
                             .setSelectedSpot(widget.spot);
+                        widget.mapOpen!(true);
                         Navigator.pop(context);
                       },
                     ),

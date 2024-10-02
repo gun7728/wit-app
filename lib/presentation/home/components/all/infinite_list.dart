@@ -31,6 +31,10 @@ class _InfiniteListState extends State<InfiniteList> {
     super.initState();
   }
 
+  void mapOpen(bool) {
+    bool ? Navigator.pop(context) : null;
+  }
+
   @override
   Widget build(BuildContext context) {
     SpotsState state = context.read<SpotsCubit>().state;
@@ -45,7 +49,7 @@ class _InfiniteListState extends State<InfiniteList> {
         builder: (context, PageState pageState) {
           if (pageState is PageLoaded) {
             if (pageState.currentPage == 2) {
-              Navigator.pop(context);
+              // Navigator.pop(context);
             }
           }
           return BlocBuilder<SpotsCubit, SpotsState>(
@@ -95,7 +99,8 @@ class _InfiniteListState extends State<InfiniteList> {
                                       ),
                                     ],
                                     child: SpotDetail(
-                                        spot: displayedSpots[index]));
+                                        spot: displayedSpots[index],
+                                        mapOpen: mapOpen));
                               }),
                             );
                           },
