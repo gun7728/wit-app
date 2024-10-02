@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:wit_app/data/models/spots.dart';
 import 'package:wit_app/presentation/home/bloc/page_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/page_state.dart';
@@ -50,6 +49,10 @@ class _ImageSearchState extends State<ImageSearch> {
         });
       });
     });
+  }
+
+  void mapOpen(bool) {
+    bool ? Navigator.pop(context) : null;
   }
 
   Future<void> _uploadImage() async {
@@ -139,7 +142,7 @@ class _ImageSearchState extends State<ImageSearch> {
     return BlocBuilder<PageCubit, PageState>(
       builder: (context, state) {
         if (state is PageLoaded) {
-          if (state.currentPage == 2) Navigator.pop(context);
+          // if (state.currentPage == 2) Navigator.pop(context);
         }
         return Scaffold(
           appBar: AppBar(
@@ -284,7 +287,8 @@ class _ImageSearchState extends State<ImageSearch> {
                                         ),
                                       ],
                                       child: SpotDetail(
-                                          spot: _searchResults[index]));
+                                          spot: _searchResults[index],
+                                          mapOpen: mapOpen));
                                 }),
                               );
                             },
