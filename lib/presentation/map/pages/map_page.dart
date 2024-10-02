@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:wit_app/data/models/position.dart';
 import 'package:wit_app/data/models/selected_spot.dart';
+import 'package:wit_app/data/models/spots.dart';
 import 'package:wit_app/presentation/home/bloc/position_cubit.dart';
 import 'package:wit_app/presentation/home/bloc/position_state.dart';
 import 'package:wit_app/presentation/home/bloc/selected_spot_cubit.dart';
@@ -47,6 +49,44 @@ class _MapPageState extends State<MapPage> {
     });
   }
 
+  void showMarkerDialog(Spots spot) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(spot.title),
+          content: Text('Do you want to get directions to ${spot.title}?'),
+          actions: [
+            TextButton(
+              onPressed: () async {
+                final url =
+                    'https://map.kakao.com/link/to/${spot.title},${spot.xCoord},${spot.yCoord}';
+                if (await canLaunch(url)) {
+                  await launch(url);
+                } else {
+                  throw 'Could not launch $url';
+                }
+                if (await canLaunchUrl(Uri.parse(url))) {
+                } else {
+                  // Handle the error if the URL can't be launched
+                  print('Could not launch $url');
+                }
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('Get Directions'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('Cancel'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   List<Marker> getMarkers() {
     List<Marker> markerList = [];
     var spotState = context.read<SpotsCubit>().state;
@@ -62,11 +102,14 @@ class _MapPageState extends State<MapPage> {
                 LatLng(double.parse(spot.yCoord), double.parse(spot.xCoord)),
                 16.5, // 줌 레벨 설정
               );
+              // Show the dialog for the clicked marker
+              // Pass the selected spot to the dialog
             },
             child: _currentZoom >= _markerVisibilityZoomThreshold
                 ? CustomMapMarker(
                     spot: spot,
                     onTap: () {
+                      showMarkerDialog(spot);
                       mapController.move(
                         LatLng(double.parse(spot.yCoord),
                             double.parse(spot.xCoord)),

@@ -72,7 +72,8 @@ class _InfiniteListState extends State<InfiniteList> {
 
               return Stack(
                 children: [
-                  Expanded(
+                  Container(
+                    // Optionally set height or constraints if necessary
                     child: ListView.builder(
                       itemCount: displayedSpots.length,
                       itemBuilder: (context, index) {
